@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,10 +35,10 @@ const DiscoverScreen = () => {
         },
         // Add more items
     ];
-
+    const navigation = useRouter();
     const artists = [
-        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg') },
-        { name: 'Jenny Doe', image: require('../../assets/images/room3.jpg') },
+        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg'), desciption: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
+        { name: 'Jenny Doe', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
     ];
 
     const museums = [
@@ -84,10 +85,15 @@ const DiscoverScreen = () => {
                         keyExtractor={(item, index) => index.toString()}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <View style={styles.artistCard}>
+                            <TouchableOpacity style={styles.artistCard} onPress={() => navigation.push(
+                                {
+                                    pathname: '/artistDetail',
+                                    params: item
+                                }
+                            )}>
                                 <Image source={item.image} style={styles.artistImage} />
                                 <Text>{item.name}</Text>
-                            </View>
+                            </TouchableOpacity>
                         )}
                     />
                 </Section>
