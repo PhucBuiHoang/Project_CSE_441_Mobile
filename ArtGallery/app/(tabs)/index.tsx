@@ -305,7 +305,6 @@ const HomeScreen = () => {
               </Text>
             </View>
           </View>
-
         ))}
       </ScrollView>
     </SafeAreaView >
