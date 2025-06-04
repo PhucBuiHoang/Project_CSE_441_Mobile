@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // const { width } = Dimensions.get('window');
 
-const Section = ({ title, children, color = '#e17055' }) => (
-    <View style={styles.section}>
+const Section = ({ title, children, color = '#e17055', style = {} }) => (
+    <View style={[styles.section, style]}>
         {/* <Text style={[styles.sectionTitle, { color }]}>{title}</Text> */}
         <TouchableOpacity style={styles.titleContainer}>
             <Text style={[styles.sectionTitle, { color }]}>{title}</Text>
@@ -53,9 +54,17 @@ const DiscoverScreen = () => {
         { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
     ];
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.header}>Discover</Text>
-            {/* 
+        <SafeAreaView edges={["top"]}>
+
+            <ScrollView style={styles.container} >
+                <View style={styles.header1}>
+                    <Ionicons name="menu" size={28} color="#f7941d" />
+                    <View style={styles.headerIcons}>
+                        <Ionicons name="cart-outline" size={24} color="#f7941d" style={styles.icon} />
+                        <Ionicons name="notifications-outline" size={24} color="#f7941d" />
+                    </View>
+                </View>
+                {/* 
             <Carousel
                 data={carouselItems}
                 renderItem={({ item }) => (
@@ -68,72 +77,75 @@ const DiscoverScreen = () => {
             /> */}
 
 
-            <Section title="Artist">
-                <FlatList
-                    horizontal
-                    data={artists}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <View style={styles.artistCard}>
-                            <Image source={item.image} style={styles.artistImage} />
-                            <Text>{item.name}</Text>
+                <Section title="Artist">
+                    <FlatList
+                        horizontal
+                        data={artists}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <View style={styles.artistCard}>
+                                <Image source={item.image} style={styles.artistImage} />
+                                <Text>{item.name}</Text>
+                            </View>
+                        )}
+                    />
+                </Section>
+
+                <Section title="Museums & Galleries" color="#f0932b">
+                    {museums.map((m, idx) => (
+                        <View key={idx} style={styles.museumCard}>
+                            <Image source={m.image} style={styles.museumImage} />
+                            <View>
+                                <Text style={styles.museumName}>{m.name}</Text>
+                                <Text>{m.desc}</Text>
+                            </View>
                         </View>
-                    )}
-                />
-            </Section>
+                    ))}
+                </Section>
 
-            <Section title="Museums & Galleries" color="#f0932b">
-                {museums.map((m, idx) => (
-                    <View key={idx} style={styles.museumCard}>
-                        <Image source={m.image} style={styles.museumImage} />
-                        <View>
-                            <Text style={styles.museumName}>{m.name}</Text>
-                            <Text>{m.desc}</Text>
-                        </View>
-                    </View>
-                ))}
-            </Section>
+                <Section title="Genres">
+                    <FlatList
+                        horizontal
+                        data={genres}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <ImageCard
+                                title={item.name}
+                                imageUrl={item.image}
+                                cardStyle={styles.genreCard}
+                                onPress={() => console.log('Pressed', item.name)}
+                            />
+                        )}
+                    />
+                </Section>
 
-            <Section title="Genres">
-                <FlatList
-                    horizontal
-                    data={genres}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <ImageCard
-                            title={item.name}
-                            imageUrl={item.image}
-                            cardStyle={styles.genreCard}
-                            onPress={() => console.log('Pressed', item.name)}
-                        />
-                    )}
-                />
-            </Section>
-
-            <Section title="Collections">
-                <FlatList
-                    horizontal
-                    data={genres}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item }) => (
-                        <ImageCard
-                            title={item.name}
-                            imageUrl={item.image}
-                            cardStyle={styles.collectionCard}
-                            onPress={() => console.log('Pressed', item.name)}
-                        />
-                    )}
-                />
-            </Section>
-        </ScrollView>
+                <Section title="Collections" style={{
+                    marginBottom: 30
+                }} >
+                    <FlatList
+                        horizontal
+                        data={genres}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <ImageCard
+                                title={item.name}
+                                imageUrl={item.image}
+                                cardStyle={styles.collectionCard}
+                                onPress={() => console.log('Pressed', item.name)}
+                            />
+                        )}
+                    />
+                </Section>
+            </ScrollView >
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: 12 },
+    container: { backgroundColor: '#fff', padding: 16 },
     titleContainer: {
         paddingHorizontal: 8,
         paddingBottom: 0,
@@ -185,6 +197,17 @@ const styles = StyleSheet.create({
         marginRight: 12,
         borderRadius: 16,
         overflow: 'hidden',
+    },
+    header1: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    headerIcons: {
+        flexDirection: 'row',
+    },
+    icon: {
+        marginRight: 12,
     },
 });
 

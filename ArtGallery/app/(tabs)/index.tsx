@@ -10,9 +10,8 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Entypo from '@expo/vector-icons/Entypo';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -25,6 +24,7 @@ const artworks = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     currentBid: '$5000',
     participants: 12,
+    endDate: '2025-06-05',
   },
   {
     id: '2',
@@ -34,6 +34,7 @@ const artworks = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     currentBid: '$8000',
     participants: 19,
+    endDate: '2025-06-05',
   },
   {
     id: '3',
@@ -43,6 +44,7 @@ const artworks = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
     currentBid: '$12000',
     participants: 25,
+    endDate: '2025-06-10T15:00:00Z',
   },
 ];
 
@@ -97,6 +99,18 @@ const upcomingExhibitions = [
   },
 ];
 
+const newsData = [
+  {
+    id: '1',
+    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. . The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance...',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
+  },
+  {
+    id: '2',
+    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. . rStarry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+  },
+];
 
 const HomeScreen = () => {
   const targetDate = new Date();
@@ -105,6 +119,25 @@ const HomeScreen = () => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  // 
+  const [timeLefts, setTimeLefts] = useState<{ [key: string]: any }>({});
+
+  useEffect(() => {
+    const updateCountdowns = () => {
+      const updated = artworks.reduce((acc, art) => {
+        acc[art.id] = calculateTimeLeft(new Date(art.endDate));
+        return acc;
+      }, {} as any);
+      setTimeLefts(updated);
+    };
+
+    updateCountdowns(); // initial run
+    const timer = setInterval(updateCountdowns, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+  // 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -122,32 +155,37 @@ const HomeScreen = () => {
     return () => clearInterval(slideInterval);
   }, [currentIndex]);
 
-  const renderArtworkItem = ({ item }: { item: any }) => (
-    <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.artImage} resizeMode="cover" />
 
-      <View style={styles.countdown}>
-        <Text style={styles.countText}>{timeLeft.days}{"\n"}Days</Text>
-        <Text style={styles.countText}>{timeLeft.hours}{"\n"}Hours</Text>
-        <Text style={styles.countText}>{timeLeft.minutes}{"\n"}Mins</Text>
-        <Text style={styles.countText}>{timeLeft.seconds}{"\n"}Secs</Text>
+  const renderArtworkItem = ({ item }: { item: any }) => {
+    const time = timeLefts[item.id] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return (
+      <View style={styles.card}>
+        <Image source={{ uri: item.image }} style={styles.artImage} resizeMode="cover" />
+
+        <View style={styles.countdown}>
+          <Text style={styles.countText}>{time.days}{"\n"}Days</Text>
+          <Text style={styles.countText}>{time.hours}{"\n"}Hours</Text>
+          <Text style={styles.countText}>{time.minutes}{"\n"}Mins</Text>
+          <Text style={styles.countText}>{time.seconds}{"\n"}Secs</Text>
+        </View>
+
+        <View style={styles.info}>
+          <Text style={styles.artTitle}>{item.title}</Text>
+          <Text>Artist: {item.artist}</Text>
+          <Text>Current bid: {item.currentBid}</Text>
+          <Text>Participants: {item.participants}</Text>
+        </View>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Bidding Start</Text>
+        </TouchableOpacity>
       </View>
+    )
 
-      <View style={styles.info}>
-        <Text style={styles.artTitle}>{item.title}</Text>
-        <Text>Artist: {item.artist}</Text>
-        <Text>Current bid: {item.currentBid}</Text>
-        <Text>Participants: {item.participants}</Text>
-      </View>
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Bidding Start</Text>
-      </TouchableOpacity>
-    </View>
-  );
+  };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Ionicons name="menu" size={28} color="#f7941d" />
@@ -242,6 +280,19 @@ const HomeScreen = () => {
             </View>
           )}
         />
+
+        <Text style={styles.newsTitle}>News</Text>
+        {newsData.map((item) => (
+          <View key={item.id} style={styles.newsItem}>
+            <Image source={{ uri: item.image }} style={styles.newsImage} resizeMode="cover" />
+            <Text
+              style={styles.newsText}
+              numberOfLines={4}
+              ellipsizeMode="tail">
+              {item.title}
+            </Text>
+          </View>
+        ))}
 
       </ScrollView>
     </SafeAreaView>
@@ -428,5 +479,36 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
+  newsTitle: {
+    fontSize: 22,
+    color: '#f7941d',
+    marginTop: 24,
+    marginBottom: 12,
+    fontWeight: '600',
+  },
 
+  newsItem: {
+    flexDirection: 'row',
+    marginBottom: 16,
+    alignItems: 'flex-start',
+  },
+
+  newsImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+
+  newsText: {
+    flex: 1,
+    fontSize: 14,
+    color: '#333',
+    lineHeight: 20,
+  },
+
+  moreText: {
+    color: '#aaa',
+    fontSize: 12,
+  },
 });
