@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import ArtistDetailScreen from './artistDetail';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -23,6 +24,8 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
+
+        <Stack.Screen name="artistDetail" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
