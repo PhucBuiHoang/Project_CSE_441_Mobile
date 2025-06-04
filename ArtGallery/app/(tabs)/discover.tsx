@@ -1,110 +1,191 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+// const { width } = Dimensions.get('window');
 
-export default function TabTwoScreen() {
+const Section = ({ title, children, color = '#e17055' }) => (
+    <View style={styles.section}>
+        {/* <Text style={[styles.sectionTitle, { color }]}>{title}</Text> */}
+        <TouchableOpacity style={styles.titleContainer}>
+            <Text style={[styles.sectionTitle, { color }]}>{title}</Text>
+            <Ionicons name="chevron-forward" size={16} color="#aaa" />
+        </TouchableOpacity>
+        {children}
+    </View>
+);
+const ImageCard = ({ title, imageUrl, onPress, cardStyle }) => {
+    const source = typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl;
     return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-            headerImage={
-                <IconSymbol
-                    size={310}
-                    color="#808080"
-                    name="chevron.left.forwardslash.chevron.right"
-                    style={styles.headerImage}
-                />
-            }>
-            <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">Explore</ThemedText>
-            </ThemedView>
-            <ThemedText>This app includes example code to help you get started.</ThemedText>
-            <Collapsible title="File-based routing">
-                <ThemedText>
-                    This app has two screens:{' '}
-                    <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-                    <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-                </ThemedText>
-                <ThemedText>
-                    The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-                    sets up the tab navigator.
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/router/introduction">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Android, iOS, and web support">
-                <ThemedText>
-                    You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-                    <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-                </ThemedText>
-            </Collapsible>
-            <Collapsible title="Images">
-                <ThemedText>
-                    For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-                    <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-                    different screen densities
-                </ThemedText>
-                <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-                <ExternalLink href="https://reactnative.dev/docs/images">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Custom fonts">
-                <ThemedText>
-                    Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-                    <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-                        custom fonts such as this one.
-                    </ThemedText>
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Light and dark mode components">
-                <ThemedText>
-                    This template has light and dark mode support. The{' '}
-                    <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-                    what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-                </ThemedText>
-                <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-                    <ThemedText type="link">Learn more</ThemedText>
-                </ExternalLink>
-            </Collapsible>
-            <Collapsible title="Animations">
-                <ThemedText>
-                    This template includes an example of an animated component. The{' '}
-                    <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-                    the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-                    library to create a waving hand animation.
-                </ThemedText>
-                {Platform.select({
-                    ios: (
-                        <ThemedText>
-                            The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-                            component provides a parallax effect for the header image.
-                        </ThemedText>
-                    ),
-                })}
-            </Collapsible>
-        </ParallaxScrollView>
+        <TouchableOpacity onPress={onPress} style={cardStyle}>
+            <ImageBackground source={source} style={styles.genreImage} imageStyle={styles.imageStyle}>
+                <Text style={styles.genreLabel}>{title}</Text>
+            </ImageBackground>
+        </TouchableOpacity >
     );
-}
+};
+
+const DiscoverScreen = () => {
+    const carouselItems = [
+        {
+            title: "The Anatomy of Painting",
+            image: require('../../assets/images/room3.jpg'), // replace with your image
+        },
+        // Add more items
+    ];
+
+    const artists = [
+        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg') },
+        { name: 'Jenny Doe', image: require('../../assets/images/room3.jpg') },
+    ];
+
+    const museums = [
+        { name: 'Louvre Museum', desc: 'Paris, French', image: require('../../assets/images/room3.jpg') },
+        { name: 'Green Palm Gallery', desc: 'District 1, HCMC', image: require('../../assets/images/room3.jpg') },
+    ];
+
+    const genres = [
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+    ];
+    return (
+        <ScrollView style={styles.container}>
+            <Text style={styles.header}>Discover</Text>
+            {/* 
+            <Carousel
+                data={carouselItems}
+                renderItem={({ item }) => (
+                    <View>
+                        <Text>{item.title}</Text>
+                    </View>
+                )}
+                sliderWidth={300}
+                itemWidth={250}
+            /> */}
+
+
+            <Section title="Artist">
+                <FlatList
+                    horizontal
+                    data={artists}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <View style={styles.artistCard}>
+                            <Image source={item.image} style={styles.artistImage} />
+                            <Text>{item.name}</Text>
+                        </View>
+                    )}
+                />
+            </Section>
+
+            <Section title="Museums & Galleries" color="#f0932b">
+                {museums.map((m, idx) => (
+                    <View key={idx} style={styles.museumCard}>
+                        <Image source={m.image} style={styles.museumImage} />
+                        <View>
+                            <Text style={styles.museumName}>{m.name}</Text>
+                            <Text>{m.desc}</Text>
+                        </View>
+                    </View>
+                ))}
+            </Section>
+
+            <Section title="Genres">
+                <FlatList
+                    horizontal
+                    data={genres}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <ImageCard
+                            title={item.name}
+                            imageUrl={item.image}
+                            cardStyle={styles.genreCard}
+                            onPress={() => console.log('Pressed', item.name)}
+                        />
+                    )}
+                />
+            </Section>
+
+            <Section title="Collections">
+                <FlatList
+                    horizontal
+                    data={genres}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <ImageCard
+                            title={item.name}
+                            imageUrl={item.image}
+                            cardStyle={styles.collectionCard}
+                            onPress={() => console.log('Pressed', item.name)}
+                        />
+                    )}
+                />
+            </Section>
+        </ScrollView>
+    );
+};
 
 const styles = StyleSheet.create({
-    headerImage: {
-        color: '#808080',
-        bottom: -90,
-        left: -35,
-        position: 'absolute',
-    },
+    container: { flex: 1, backgroundColor: '#fff', padding: 12 },
     titleContainer: {
+        paddingHorizontal: 8,
+        paddingBottom: 0,
+        marginTop: 24,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
         flexDirection: 'row',
-        gap: 8,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    header: { fontSize: 24, fontWeight: 'bold', color: '#e17055' },
+    carouselItem: { borderRadius: 10, overflow: 'hidden' },
+    carouselImage: { width: '100%', height: 180, borderRadius: 10 },
+    carouselText: { marginTop: 8, fontSize: 16, fontWeight: '600' },
+    section: { marginTop: 24 },
+    sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 8 },
+    artistCard: { alignItems: 'center', marginRight: 16, flexDirection: 'row' },
+    artistImage: { width: 60, height: 60, borderRadius: 30, marginRight: 5 },
+    museumCard: { flexDirection: 'row', marginBottom: 16 },
+    museumImage: { width: 100, height: 80, borderRadius: 10, marginRight: 12 },
+    museumName: { fontWeight: 'bold', fontSize: 16 },
+    genreCard: {
+        width: 140,
+        height: 150,
+        marginRight: 12,
+        borderRadius: 16,
+        overflow: 'hidden',
+    },
+    genreImage: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        padding: 10,
+    },
+    imageStyle: {
+        borderRadius: 16,
+    },
+    genreLabel: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+        textShadowColor: 'rgba(0, 0, 0, 0.8)',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 3,
+    },
+    collectionCard: {
+        width: 140,
+        height: 210,
+        marginRight: 12,
+        borderRadius: 16,
+        overflow: 'hidden',
     },
 });
+
+export default DiscoverScreen;
