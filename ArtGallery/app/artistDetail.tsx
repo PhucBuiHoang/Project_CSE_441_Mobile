@@ -13,7 +13,7 @@ export default function ArtistDetailScreen() {
                     <Text style={styles.genreLabel}>{params.name}</Text>
                 </ImageBackground>
             </View >
-            <Text style={styles.genreLabel}>{params.description}</Text>
+            <Text>{params.description}</Text>
         </SafeAreaView>
 
     )
@@ -22,6 +22,7 @@ export default function ArtistDetailScreen() {
 const styles = StyleSheet.create({
     container: {
         margin: 8,
+        backgroundColor: '#fff'
     },
     Card: {
         width: '100%',
