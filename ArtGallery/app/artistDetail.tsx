@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ArtistDetailScreen() {
     const params = useLocalSearchParams();
-
     console.log(params);
 
     return (
