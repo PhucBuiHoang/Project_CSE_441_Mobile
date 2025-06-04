@@ -102,13 +102,21 @@ const upcomingExhibitions = [
 const newsData = [
   {
     id: '1',
-    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. . The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance...',
+    title: 'Today is Sunday',
+    dicsription: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. . The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance...',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
   },
   {
     id: '2',
-    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Starry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
+    title: 'Today is Moonday',
+    dicsription: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Starry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+  },
+  {
+    id: '3',
+    title: 'Today is Moonday',
+    dicsription: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Starry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
   },
 ];
 
@@ -181,7 +189,6 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
     )
-
   };
 
   return (
@@ -285,21 +292,23 @@ const HomeScreen = () => {
         {newsData.map((item) => (
           <View key={item.id} style={styles.newsItem}>
             <Image source={{ uri: item.image }} style={styles.newsImage} resizeMode="cover" />
-
-            <Text
-              style={styles.artTitle}>
-              HGEllo
-            </Text>
-            <Text
-              style={styles.newsText}
-              numberOfLines={4}
-              ellipsizeMode="tail">
-              {item.title}
-            </Text>
+            <View style={{ flex: 1 }} >
+              <Text
+                style={styles.artTitle}>
+                {item.title}
+              </Text>
+              <Text
+                style={styles.newsText}
+                numberOfLines={4}
+                ellipsizeMode="tail">
+                {item.dicsription}
+              </Text>
+            </View>
           </View>
+
         ))}
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView >
 
   );
 };
@@ -495,11 +504,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 16,
     alignItems: 'flex-start',
+    // marginRight: 75
   },
 
   newsImage: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 110,
     borderRadius: 8,
     marginRight: 12,
   },
@@ -511,8 +521,4 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  moreText: {
-    color: '#aaa',
-    fontSize: 12,
-  },
 });
