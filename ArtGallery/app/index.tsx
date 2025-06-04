@@ -21,9 +21,9 @@ export default function HomeScreen() {
                 <ThemedText type="title"><Link href={"/(tabs)"}>Bấm vào đây để vào Trang Chính</Link></ThemedText>
 
                 <ThemedText type="title" style={{ color: 'red', marginTop: 30 }}><Link href={"/about"}>Detail</Link></ThemedText>
-                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/artistDetail"}>Artist Detail</Link></ThemedText>
-                <ThemedText type="title" style={{ color: 'Pink', marginTop: 30 }}><Link href={"/signIn"}>Sign In</Link></ThemedText>
-                <ThemedText type="title" style={{ color: 'Black', marginTop: 30 }}><Link href={"/signUp"}>Sign Up</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'blue', marginTop: 30 }}><Link href={"/artistDetail"}>Artist Detail</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'pink', marginTop: 30 }}><Link href={"/signIn"}>Sign In</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'black', marginTop: 30 }}><Link href={"/signUp"}>Sign Up</Link></ThemedText>
             </ThemedView>
         </ParallaxScrollView>
     );

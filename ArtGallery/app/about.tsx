@@ -1,7 +1,8 @@
 // ProductDetailScreen.tsx
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const productData = {
     id: 1,
@@ -9,79 +10,114 @@ const productData = {
     medium: "oil on canvas",
     size: "212 × 142 cm",
     artist: "Wilhelm Kotarbiński",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Wilhelm_Kotarbinski_-_Tomb_of_a_Suicide.jpg",
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     dateTag: "TODAY",
     likes: 210,
-    description: `The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci.
-  Considered an archetypal masterpiece of the Italian Renaissance, it has been described
-  as “the best known, the most visited, the most written about, the most sung about,
-  the most parodied work of art in the world.”`,
+    description: `Japan’s art world experienced a profound transformation from the mid-19th to early 20th century, as traditional aesthetics encountered a wave of European artistic philosophies and techniques. This period of tension and innovation provided the backdrop for the career of Kyoto-based artist Takeuchi Seihō. Trained in the Shijō school of painting, Seihō expanded his artistic vocabulary by drawing from a range of styles—including the Kano school, bunjinga (literati painting), and European realism. His pursuit of new modes of expression led to the development of a characteristic style that helped spark a revolution in the Kyoto art scene.One of the most striking values of Takeuchi Seihō’s paintings is the dynamic vitality of his animal subjects. He had an extraordinary ability to capture fleeting moments, giving the impression that his creatures might leap, flutter, or scamper off the page at any moment. He was a great observer of nature. As Seihō once explained, “I don’t simply look at a static image of animals. I watch them over time, noting every subtle change in posture, texture, and movement to truly understand their unique characteristics.”Beautiful, aren't they?`,
 };
+const moreArticles = [
+    {
+        id: 1,
+        title: "QUIZ: Are You a Japanese Art Lover?",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+        author: "KATERINA PAPOULIOU",
+        date: "MARCH 22",
+    },
+    {
+        id: 2,
+        title: "10 Incredible Ukiyo-e You Need to See",
+        imageUrl: "https://cdn-zbiory.mnk.pl/upload/multimedia/56/e7/56e7871948a825ab8f200b1d3228aa65.jpg",
+        author: "JOANNA MUZZI",
+        date: "APRIL 10",
+    },
+];
 const ProductDetailScreen = () => {
     return (
-        <View style={styles.container}>
-            {/* Ảnh sản phẩm */}
-            <Image
-                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' }}
-                style={styles.image}
-                resizeMode="cover"
-            />
+        // <SafeAreaView edges={["top"]}>
+        <SafeAreaView edges={["bottom"]}>
+            <ScrollView >
+                {/* Ảnh sản phẩm */}
+                <Image
+                    source={{ uri: productData.imageUrl }}
+                    style={styles.image}
+                    resizeMode="cover"
+                />
 
-            {/* Nút Back và Share */}
-            <View style={styles.headerIcons}>
-                <TouchableOpacity>
-                    <Ionicons name="arrow-back" size={24} color="#fff" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Feather name="share-2" size={22} color="#fff" />
-                </TouchableOpacity>
-            </View>
+                {/* Nút Back và Share */}
+                <View style={styles.headerIcons}>
+                    <TouchableOpacity>
+                        <Ionicons name="arrow-back" size={24} color="#fff" />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Feather name="share-2" size={22} color="#fff" />
+                    </TouchableOpacity>
+                </View>
 
-            {/* Nội dung chi tiết */}
-            <View style={styles.detailContainer}>
-                {/* Tag + Icon yêu thích */}
-                <View style={styles.topRow}>
-                    <View style={styles.tag}>
-                        <Text style={styles.tagText}>TODAY</Text>
-                    </View>
-                    <View style={styles.rightIcons}>
-                        <View style={styles.iconBox}>
-                            <Ionicons name="heart-outline" size={18} color="#000" />
-                            <Text style={styles.iconText}>210</Text>
+                {/* Nội dung chi tiết */}
+                <View style={styles.detailContainer}>
+                    {/* Tag + Icon yêu thích */}
+                    <View style={styles.topRow}>
+                        <View style={styles.tag}>
+                            <Text style={styles.tagText}>{productData.dateTag}</Text>
                         </View>
-                        <TouchableOpacity>
-                            <Feather name="share-2" size={18} color="#000" />
-                        </TouchableOpacity>
+                        <View style={styles.rightIcons}>
+                            <View style={styles.iconBox}>
+                                <Ionicons name="heart-outline" size={18} color="#000" />
+                                <Text style={styles.iconText}>{productData.likes}</Text>
+                            </View>
+                            <TouchableOpacity>
+                                <Feather name="share-2" size={18} color="#000" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
+
+                    {/* Tiêu đề và mô tả ngắn */}
+                    <Text style={styles.title}>{productData.title}</Text>
+                    <Text style={styles.medium}>{productData.medium}</Text>
+
+                    {/* Tác giả */}
+                    <View style={styles.authorContainer}>
+                        <Text style={styles.author}>{productData.artist}</Text>
+                    </View>
+
+                    {/* Mô tả dài */}
+                    <Text style={styles.description} ellipsizeMode="tail">
+                        {productData.description}
+                    </Text>
+                </View>
+                <View style={styles.detailContainer}>
+                    <Text
+                        style={{
+                            fontSize: 24,
+                            color: '#f28c28',
+                            fontWeight: 'bold',
+                            marginBottom: 10,
+                        }} >
+                        Check out more</Text>
+                    <FlatList
+                        horizontal
+                        data={moreArticles}
+                        keyExtractor={(item) => item.id.toString()}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity style={styles.card}>
+                                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+                                <Text style={styles.articleTitle} numberOfLines={2}>{item.title}</Text>
+                                <Text style={styles.meta}>
+                                    <Text style={styles.author}>{item.author}</Text> • {item.date}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    />
                 </View>
 
-                {/* Tiêu đề và mô tả ngắn */}
-                <Text style={styles.title}>Tomb of a Suicide</Text>
-                <Text style={styles.medium}>Oil on canvas | 212 × 142 cm</Text>
-
-                {/* Tác giả */}
-                <View style={styles.authorContainer}>
-                    <Text style={styles.author}>Author: Wilhelm Kotarbiński</Text>
-                </View>
-
-                {/* Mô tả dài */}
-                <Text style={styles.description} numberOfLines={4} ellipsizeMode="tail">
-                    The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci.
-                    Considered an archetypal masterpiece of the Italian Renaissance, it has been described
-                    as “the best known, the most visited, the most written about, the most sung about,
-                    the most parodied work of art in the world.”
-                </Text>
-            </View>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
 export default ProductDetailScreen;
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-    },
     image: {
         width: '100%',
         height: 400,
@@ -157,4 +193,36 @@ const styles = StyleSheet.create({
         color: '#555',
         lineHeight: 20,
     },
+
+
+    // 
+    // title: {
+    //     fontSize: 20,
+    //     fontWeight: '800',
+    //     marginBottom: 16,
+    // },
+    card: {
+        marginRight: 8,
+        // marginLeft: 5,
+        width: 300,
+    },
+    // image: {
+    //     width: '100%',
+    //     height: 120,
+    //     borderRadius: 12,
+    //     marginBottom: 8,
+    // },
+    articleTitle: {
+        fontSize: 16,
+        fontWeight: '600',
+        marginBottom: 4,
+    },
+    meta: {
+        fontSize: 12,
+        color: '#555',
+    },
+    // author: {
+    //     fontWeight: 'bold',
+    //     color: '#D72638',
+    // },
 });

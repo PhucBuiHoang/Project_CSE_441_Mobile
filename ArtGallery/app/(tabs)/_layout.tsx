@@ -37,6 +37,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="about"
+        options={{
+          title: 'About',
+          href: null
+        }}
+      />
+      <Tabs.Screen
         name="discover"
         options={{
           title: 'Discover',

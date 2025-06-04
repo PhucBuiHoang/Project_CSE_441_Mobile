@@ -107,7 +107,7 @@ const newsData = [
   },
   {
     id: '2',
-    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. . rStarry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
+    title: 'The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Starry Night is one of Dutch artist Vincent van Gogh\'s most famous works. Painted in June 1889, it reflects his view from the asylum...',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
   },
 ];
@@ -285,6 +285,11 @@ const HomeScreen = () => {
         {newsData.map((item) => (
           <View key={item.id} style={styles.newsItem}>
             <Image source={{ uri: item.image }} style={styles.newsImage} resizeMode="cover" />
+
+            <Text
+              style={styles.artTitle}>
+              HGEllo
+            </Text>
             <Text
               style={styles.newsText}
               numberOfLines={4}
@@ -293,7 +298,6 @@ const HomeScreen = () => {
             </Text>
           </View>
         ))}
-
       </ScrollView>
     </SafeAreaView>
 
