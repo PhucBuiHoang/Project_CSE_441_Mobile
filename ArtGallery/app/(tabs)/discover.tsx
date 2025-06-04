@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
-import { FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // const { width } = Dimensions.get('window');
 
+const screenWidth = Dimensions.get('window').width;
 const Section = ({ title, children, color = '#e17055', style = {} }) => (
     <View style={[styles.section, style]}>
         {/* <Text style={[styles.sectionTitle, { color }]}>{title}</Text> */}
@@ -33,6 +34,14 @@ const DiscoverScreen = () => {
             title: "The Anatomy of Painting",
             image: require('../../assets/images/room3.jpg'), // replace with your image
         },
+        {
+            title: "The Anatomy of Painting",
+            image: require('../../assets/images/room3.jpg'), // replace with your image
+        },
+        {
+            title: "The Anatomy of Painting",
+            image: require('../../assets/images/room3.jpg'), // replace with your image
+        },
         // Add more items
     ];
     const navigation = useRouter();
@@ -54,6 +63,8 @@ const DiscoverScreen = () => {
         { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
         { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
     ];
+    const flatListRef = useRef<FlatList>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
     return (
         <SafeAreaView edges={["top"]}>
 
@@ -65,18 +76,43 @@ const DiscoverScreen = () => {
                         <Ionicons name="notifications-outline" size={24} color="#f7941d" />
                     </View>
                 </View>
-                {/* 
-            <Carousel
-                data={carouselItems}
-                renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.title}</Text>
-                    </View>
-                )}
-                sliderWidth={300}
-                itemWidth={250}
-            /> */}
+                <FlatList
+                    ref={flatListRef}
+                    data={carouselItems}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <ImageCard
+                            title={item.title}
+                            imageUrl={item.image}
+                            cardStyle={styles.carouselCard}
+                            onPress={() => console.log('Pressed', item.title)}
+                        />
+                    )}
+                    onMomentumScrollEnd={(event) => {
+                        const index = Math.round(
+                            event.nativeEvent.contentOffset.x / (screenWidth * 0.85 + 20)
+                        );
+                        setCurrentIndex(index);
+                    }}
+                    contentContainerStyle={{ paddingHorizontal: 10 }}
+                    snapToAlignment="center"
+                    decelerationRate="fast"
+                />
 
+                <View style={styles.paginationContainer}>
+                    {carouselItems.map((_, index) => (
+                        <View
+                            key={index}
+                            style={[
+                                styles.dot,
+                                currentIndex === index && styles.activeDot,
+                            ]}
+                        />
+                    ))}
+                </View>
 
                 <Section title="Artist">
                     <FlatList
@@ -215,6 +251,31 @@ const styles = StyleSheet.create({
     icon: {
         marginRight: 12,
     },
+    paginationContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+        // marginBottom: 24,
+    },
+    dot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: '#ccc',
+        marginHorizontal: 4,
+    },
+    activeDot: {
+        backgroundColor: '#f7941d',
+    },
+    carouselCard: {
+        width: screenWidth * 0.85,
+        height: 300,
+        marginTop: 32,
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 16,
+        overflow: 'hidden',
+    }
 });
 
 export default DiscoverScreen;

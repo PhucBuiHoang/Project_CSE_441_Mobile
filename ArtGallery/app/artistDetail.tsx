@@ -8,19 +8,22 @@ export default function ArtistDetailScreen() {
     console.log(params);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <View style={styles.Card}>
                 <ImageBackground source={params.image} style={styles.genreImage} imageStyle={styles.imageStyle}>
                     <Text style={styles.genreLabel}>{params.name}</Text>
                 </ImageBackground>
             </View >
-            <Text>{params.description}</Text>
+            <Text style={styles.genreLabel}>{params.description}</Text>
         </SafeAreaView>
 
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        margin: 8,
+    },
     Card: {
         width: '100%',
         height: 150,
