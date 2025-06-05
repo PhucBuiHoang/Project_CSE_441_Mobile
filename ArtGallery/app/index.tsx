@@ -6,7 +6,11 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Link } from 'expo-router';
+<<<<<<< Updated upstream
 import { SafeAreaView } from 'react-native-safe-area-context';
+=======
+import React from 'react';
+>>>>>>> Stashed changes
 
 export default function HomeScreen() {
     return (
@@ -23,10 +27,16 @@ export default function HomeScreen() {
                 <ThemedText type="title"><Link href={"/(tabs)"}>Bấm vào đây để vào Trang Chính</Link></ThemedText>
 
                 <ThemedText type="title" style={{ color: 'red', marginTop: 30 }}><Link href={"/about"}>Detail</Link></ThemedText>
+<<<<<<< Updated upstream
                 <ThemedText type="title" style={{ color: 'yellow', marginTop: 30 }}><Link href={"/signIn"}>Sign In</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'gray', marginTop: 30 }}><Link href={"/signUp"}>Sign Up</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'pink', marginTop: 30 }}><Link href={"/artistList"}>Artist List</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'red', marginTop: 30 }}><Link href={"/artList"}>Art List</Link></ThemedText>
+=======
+                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/artistDetail"}>Artist Detail</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/signIn"}>Login</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/signUp"}>Signup</Link></ThemedText>
+>>>>>>> Stashed changes
             </ThemedView>
         </ParallaxScrollView>
 
