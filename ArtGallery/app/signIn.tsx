@@ -70,7 +70,7 @@ const LoginScreen = () => {
                                     value={username}
                                     onChangeText={setUsername}
                                     autoCapitalize="none"
-                                    
+
                                 />
                             </View>
 
@@ -93,11 +93,11 @@ const LoginScreen = () => {
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowPassword(!showPassword)}
-                                    style={styles.eyeIcon}
+
                                 >
                                     <FontAwesome
                                         name={showPassword ? "eye" : "eye-slash"}
-                                        size={18}
+                                        size={20}
                                         color="rgba(255, 255, 255, 0.8)"
                                     />
                                 </TouchableOpacity>
@@ -165,6 +165,7 @@ const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
     },
@@ -220,10 +221,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        borderRadius: 12,
+        borderRadius: 14,
         marginBottom: 20,
         paddingHorizontal: 15,
-        // paddingVertical: 15,
+        paddingVertical: 4,
+        // padding:10,
         borderWidth: 2,
         borderColor: '#FFB348',
         // Shadow effect theo Figma
@@ -244,9 +246,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
     },
-    eyeIcon: {
-        padding: 5,
-    },
+
     optionsRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -302,9 +302,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
         width: 150,
-        height:40,
+        height: 40,
         // marginRight:20,
-        marginLeft:60
+        marginVertical: 'auto',
+        marginHorizontal: 'auto',
     },
     signInButtonText: {
         color: 'white',
