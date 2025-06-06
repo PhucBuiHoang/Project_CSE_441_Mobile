@@ -22,14 +22,13 @@ export default function HomeScreen() {
             }>
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title"><Link href={"/(tabs)"}>Bấm vào đây để vào Trang Chính</Link></ThemedText>
-
-                <ThemedText type="title" style={{ color: 'red', marginTop: 30 }}><Link href={"/about"}>Detail</Link></ThemedText>
+                {/* <ThemedText type="title" style={{ color: 'red', marginTop: 30 }}><Link href={"/about"}>Detail</Link></ThemedText> */}
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/artistDetail"}>Artist Detail</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/signIn"}>Login</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/signUp"}>Signup</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/startScreen"}>start</Link></ThemedText>
-                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/account"}>account</Link></ThemedText>
-                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/editAccount"}>editAcoount</Link></ThemedText>
+                {/* <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/account"}>account</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/editAccount"}>editAcoount</Link></ThemedText> */}
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/logOut"}>logoutlogout</Link></ThemedText>
             </ThemedView>
         </ParallaxScrollView>

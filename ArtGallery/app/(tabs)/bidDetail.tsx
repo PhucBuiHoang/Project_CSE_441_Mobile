@@ -1,4 +1,4 @@
-
+// ProductDetailScreen.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, FlatList, TextInput } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';

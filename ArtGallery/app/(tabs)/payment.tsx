@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 
@@ -12,31 +12,43 @@ const mockData = [
         title: 'Abraham and the Angels',
         artist: 'Unknown',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 1000000,
+        currentBid: 20000,
         endBidDate: '2025-06-11T12:00:00Z',
+        yourBid: 20000
     },
     {
         id: '3',
         title: 'Abraham and the Angels',
         artist: 'Unknown',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 10000,
+        currentBid: 20000,
         endBidDate: '2025-06-11T12:00:00Z',
+        yourBid: 20000
+    },
+    {
+        id: '4',
+        title: 'Abraham and the Angels',
+        artist: 'Unknown',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+        currentBid: 20000,
+        endBidDate: '2025-06-11T12:00:00Z',
+        yourBid: 20000
     },
     {
         id: '2',
         title: 'Untitled Portrait',
         artist: 'Unknown',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 2000000,
+        currentBid: 20000,
         endBidDate: '2025-06-12T08:00:00Z',
+        yourBid: 20000
     }
 ];
 
 
 
 
-const BidList = () => {
+const Cart = () => {
     const [timeLefts, setTimeLefts] = useState<{ [key: string]: any }>({});
 
     useEffect(() => {
@@ -70,15 +82,16 @@ const BidList = () => {
                 <View style={styles.info}>
                     <Text style={styles.artTitle}>{item.title}</Text>
                     <Text>Artist: {item.artist}</Text>
+
                     <Text>Current bid: ${formatBid(item.currentBid)}</Text>
                     <Text>Participants: {item.participants}</Text>
+                    <Text style={styles.artTitle}>Your bid: ${formatBid(item.yourBid)}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.button}>
-                    <Link href="/bidDetail">
-                        <Text style={styles.buttonText}>Bidding Start</Text>
-                    </Link>
-
+                    {/* <Link href="/bidDetail"> */}
+                    <Text style={styles.buttonText}>Fail</Text>
+                    {/* </Link> */}
                 </TouchableOpacity>
             </View>
         )
@@ -87,21 +100,36 @@ const BidList = () => {
         <SafeAreaView edges={["top"]}>
             {/* Header */}
             <View style={styles.header}>
-                <Text style={styles.title}>Auction Room</Text>
+                <Text style={styles.title}>Shopping</Text>
                 <Feather name="bell" size={20} color="#f28c28" />
             </View>
 
             {/* Tabs */}
-            {/* <View style={styles.tabs}>
-                <View style={styles.tabItem}>
-                    <Ionicons name="hammer-outline" size={20} color="#f28c28" />
-                    <Text style={styles.tabText}>Bid List</Text>
-                </View>
-                <View style={styles.tabItem}>
-                    <Ionicons name="heart-outline" size={20} color="#f28c28" />
-                    <Text style={styles.tabText}>Following</Text>
-                </View>
-            </View> */}
+            <View style={styles.tabs}>
+                <Link href="/shop" asChild>
+                    <TouchableOpacity style={styles.tabItem}>
+                        <Ionicons
+                            name="hammer-outline"
+                            size={24}
+                            color="#999" // Active tab color
+                        />
+                        <Text style={styles.tabText}>Bidding</Text>
+                    </TouchableOpacity>
+                </Link>
+
+                <Link href="/payment" asChild>
+                    <TouchableOpacity style={styles.tabItem}>
+                        <Ionicons
+                            name="cart-outline"
+                            size={24}
+                            color="#f28c28"  // Inactive color
+                        />
+                        <Text style={[styles.tabText, styles.activeTabText]} >Payment</Text>
+                    </TouchableOpacity>
+                </Link>
+            </View>
+
+
 
             {/* List */}
             <FlatList
@@ -109,7 +137,7 @@ const BidList = () => {
                 keyExtractor={item => item.id}
                 contentContainerStyle={{ padding: 12 }}
                 renderItem={renderArtworkItem}
-                style={{ marginBottom: 25 }}
+                style={{ marginBottom: 90 }}
             />
         </SafeAreaView>
     );
@@ -128,7 +156,7 @@ function calculateTimeLeft(targetDate: Date) {
 
     return { days, hours, minutes, seconds };
 }
-export default BidList;
+export default Cart;
 
 const styles = StyleSheet.create({
     container: {
@@ -157,7 +185,7 @@ const styles = StyleSheet.create({
     },
     tabText: {
         fontSize: 12,
-        color: '#f28c28',
+        color: "#999",
         marginTop: 4,
     },
     card: {
@@ -259,4 +287,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
 
     },
+    activeTabText: {
+        color: '#f28c28',
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+    }
 });

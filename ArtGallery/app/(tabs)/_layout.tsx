@@ -36,7 +36,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
-      
+
       <Tabs.Screen
         name="discover"
         options={{
@@ -53,16 +53,16 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="shopping"
+        name="shop"
         options={{
           title: 'Shop',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="shopping-outline" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="person"
         options={{
-          title: 'Account',
+          title: 'Person',
           tabBarIcon: ({ color }) => <Ionicons name="person-outline" size={24} color={color} />,
         }}
       />
@@ -77,6 +77,27 @@ export default function TabLayout() {
         name="bidList"
         options={{
           title: 'Bid List',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="payment"
+        options={{
+          title: 'Bid List',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="editAccount"
+        options={{
+          title: 'Edit Accout',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="artworkDetail"
+        options={{
+          title: 'Artwork Detail',
           href: null,
         }}
       />

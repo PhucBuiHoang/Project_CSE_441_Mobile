@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 
 const productData = {
     id: 1,
@@ -33,8 +34,8 @@ const moreArticles = [
 ];
 const ProductDetailScreen = () => {
     return (
-        // <SafeAreaView edges={["top"]}>
-        <SafeAreaView edges={["bottom"]}>
+        <SafeAreaView edges={["top"]}>
+            {/* <SafeAreaView edges={["bottom"]}> */}
             <ScrollView >
                 {/* Ảnh sản phẩm */}
                 <Image
@@ -46,11 +47,13 @@ const ProductDetailScreen = () => {
                 {/* Nút Back và Share */}
                 <View style={styles.headerIcons}>
                     <TouchableOpacity>
-                        <Ionicons name="arrow-back" size={24} color="#fff" />
+                        <Link href={"/(tabs)"}>
+                            <Ionicons name="arrow-back" size={24} color="#fff" />
+                        </Link>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Feather name="share-2" size={22} color="#fff" />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 {/* Nội dung chi tiết */}
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
     },
 
 
-    // 
+    //
     // title: {
     //     fontSize: 20,
     //     fontWeight: '800',

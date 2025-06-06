@@ -7,19 +7,20 @@ import {
     TouchableOpacity,
     StyleSheet,
     StatusBar,
-    SafeAreaView,
     Alert,
 } from 'react-native';
 
 // useRouter nếu vẫn muốn dùng điều hướng
 import { useRouter } from 'expo-router';
 
-import profileImage from '../assets/images/avt.png';
+import profileImage from '../../assets/images/avt.png';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EditProfileScreen = () => {
     const router = useRouter();
     const [name, setName] = useState('Hoàng Vy');
     const [username, setUsername] = useState('_hoang.vy_');
+    const [password, setPassword] = useState();
 
     const handleSaveChanges = () => {
         Alert.alert('Success', 'Profile updated successfully!');
@@ -70,6 +71,18 @@ const EditProfileScreen = () => {
                         placeholderTextColor="#999"
                     />
                 </View>
+
+                <View style={styles.inputContainer}>
+                    <Text style={styles.inputLabel}>Password</Text>
+                    <TextInput
+                        textContentType='password'
+                        style={styles.textInput}
+                        value={password}
+                        // onChangeText={setUsername}
+                        placeholder="*******"
+                        placeholderTextColor="#999"
+                    />
+                </View>
             </View>
 
             {/* Buttons Section */}
@@ -82,13 +95,13 @@ const EditProfileScreen = () => {
                     <Text style={styles.saveButtonText}>Save change</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={styles.changePasswordButton}
                     onPress={handleChangePassword}
                     activeOpacity={0.8}
                 >
                     <Text style={styles.changePasswordButtonText}>Change password</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </SafeAreaView>
     );
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
     },
     formSection: {
         paddingHorizontal: 20,
-        marginBottom: 40,
+        // marginBottom: 40,
     },
     inputContainer: {
         marginBottom: 20,
@@ -142,7 +155,6 @@ const styles = StyleSheet.create({
     },
     buttonsSection: {
         paddingHorizontal: 20,
-        gap: 15,
     },
     saveButton: {
         backgroundColor: '#FF8C00',

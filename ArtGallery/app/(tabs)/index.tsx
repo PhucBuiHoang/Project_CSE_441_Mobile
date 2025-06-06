@@ -198,13 +198,13 @@ const HomeScreen = () => {
   return (
     <SafeAreaView edges={["top"]}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <Ionicons name="menu" size={28} color="#f7941d" />
           <View style={styles.headerIcons}>
             <Ionicons name="cart-outline" size={24} color="#f7941d" style={styles.icon} />
             <Ionicons name="notifications-outline" size={24} color="#f7941d" />
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.searchBar}>
           <TextInput
@@ -218,7 +218,9 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Text style={styles.hotBidsTitle}>Hot Bids</Text>
           <View style={styles.headerIcons}>
-            <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
+            <Link href={'/bidList'}>
+              <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
+            </Link>
           </View>
         </View>
 
@@ -260,12 +262,15 @@ const HomeScreen = () => {
         </View>
         <View style={styles.dailyArtContainer}>
           {dailyArtworks.map((art) => (
-            <Image
-              key={art.id}
-              source={{ uri: art.image }}
-              style={styles.dailyArtImage}
-              resizeMode="cover"
-            />
+            <Link href={'/artworkDetail'} key={art.id}>
+              <Image
+                key={art.id}
+                source={{ uri: art.image }}
+                style={styles.dailyArtImage}
+                resizeMode="cover"
+              />
+            </Link>
+
           ))}
         </View>
 
