@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 import { useRouter } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -29,24 +30,39 @@ const ImageCard = ({ title, imageUrl, onPress, cardStyle }) => {
 };
 
 const DiscoverScreen = () => {
-    const carouselItems = [
-        {
-            title: "The Anatomy of Painting",
-            image: require('../../assets/images/room3.jpg'), // replace with your image
-        },
-        {
-            title: "The Anatomy of Painting",
-            image: require('../../assets/images/room3.jpg'), // replace with your image
-        },
-        {
-            title: "The Anatomy of Painting",
-            image: require('../../assets/images/room3.jpg'), // replace with your image
-        },
-        // Add more items
-    ];
+    const [carouselItems, setCarouselItems] = useState([]);
+
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                // const token = await AsyncStorage.getItem('token');
+                const res = await axios.get('http://localhost:5266/api/Artwork');
+                setCarouselItems(res.data);
+                console.log(res.data);
+            } catch (error) {
+                console.log('Failed to load services', error);
+            }
+        };
+        fetchServices();
+    }, []);
+    // const carouselItems = [
+    //     {
+    //         title: "The Anatomy of Painting",
+    //         image: require('../../assets/images/room3.jpg'), // replace with your image
+    //     },
+    //     {
+    //         title: "The Anatomy of Painting",
+    //         image: require('../../assets/images/room3.jpg'), // replace with your image
+    //     },
+    //     {
+    //         title: "The Anatomy of Painting",
+    //         image: require('../../assets/images/room3.jpg'), // replace with your image
+    //     },
+    //     // Add more items
+    // ];
     const navigation = useRouter();
     const artists = [
-        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg'), desciption: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
+        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
         { name: 'Jenny Doe', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
     ];
 
@@ -85,8 +101,8 @@ const DiscoverScreen = () => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <ImageCard
-                            title={item.title}
-                            imageUrl={item.image}
+                            title={item.description}
+                            imageUrl={item.imageUrl}
                             cardStyle={styles.carouselCard}
                             onPress={() => console.log('Pressed', item.title)}
                         />
