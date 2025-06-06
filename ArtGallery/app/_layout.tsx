@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import ArtistDetailScreen from './artistDetail';
+import React from 'react';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

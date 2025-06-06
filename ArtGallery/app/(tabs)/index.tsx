@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Link } from 'expo-router';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -24,7 +25,7 @@ const artworks = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     currentBid: '$5000',
     participants: 12,
-    endDate: '2025-06-05',
+    endDate: '2025-06-08',
   },
   {
     id: '2',
@@ -34,7 +35,7 @@ const artworks = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
     currentBid: '$8000',
     participants: 19,
-    endDate: '2025-06-05',
+    endDate: '2025-06-07',
   },
   {
     id: '3',
@@ -124,7 +125,7 @@ const HomeScreen = () => {
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 5);
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
+  // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetDate));
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
@@ -147,12 +148,12 @@ const HomeScreen = () => {
   }, []);
   // 
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(targetDate));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setTimeLeft(calculateTimeLeft(targetDate));
+  //   }, 1000);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -185,7 +186,10 @@ const HomeScreen = () => {
         </View>
 
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Bidding Start</Text>
+          <Link href="/bidDetail">
+            <Text style={styles.buttonText}>Bidding Start</Text>
+          </Link>
+
         </TouchableOpacity>
       </View>
     )

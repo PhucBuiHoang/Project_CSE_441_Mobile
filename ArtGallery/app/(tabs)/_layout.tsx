@@ -58,11 +58,26 @@ export default function TabLayout() {
           title: 'Shop',
           tabBarIcon: ({ color }) => <MaterialCommunityIcons name="shopping-outline" size={24} color={color} />,
         }}
-      /><Tabs.Screen
+      />
+      <Tabs.Screen
         name="explore"
         options={{
           title: 'Account',
           tabBarIcon: ({ color }) => <Ionicons name="person-outline" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="bidDetail"
+        options={{
+          title: 'Bid Detail',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="bidList"
+        options={{
+          title: 'Bid List',
+          href: null,
         }}
       />
     </Tabs>
