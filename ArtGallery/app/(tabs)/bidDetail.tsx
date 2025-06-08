@@ -65,6 +65,9 @@ const BidDetailScreen = () => {
                     <TouchableOpacity>
                         <Ionicons name="arrow-back" size={24} color="#fff" />
                     </TouchableOpacity>
+                    {/* <TouchableOpacity>
+                        <Feather name="share-2" size={22} color="#fff" />
+                    </TouchableOpacity> */}
                 </View>
 
                 {/* Nội dung chi tiết */}

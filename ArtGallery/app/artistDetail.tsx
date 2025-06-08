@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ArtistDetailScreen() {
@@ -8,12 +9,14 @@ export default function ArtistDetailScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.Card}>
-                <ImageBackground source={params.image} style={styles.genreImage} imageStyle={styles.imageStyle}>
-                    <Text style={styles.genreLabel}>{params.name}</Text>
-                </ImageBackground>
-            </View >
-            <Text>{params.description}</Text>
+            <ScrollView>
+                <View style={styles.Card}>
+                    <ImageBackground source={params.image} style={styles.genreImage} imageStyle={styles.imageStyle}>
+                        <Text style={styles.genreLabel}>{params.name}</Text>
+                    </ImageBackground>
+                </View >
+                <Text>{params.description}</Text>
+            </ScrollView>
         </SafeAreaView>
 
     )

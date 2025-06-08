@@ -51,9 +51,9 @@ const ProductDetailScreen = () => {
                             <Ionicons name="arrow-back" size={24} color="#fff" />
                         </Link>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity>
-                        <Feather name="share-2" size={22} color="#fff" />
-                    </TouchableOpacity> */}
+                    <TouchableOpacity>
+                        <Feather name="heart" size={24} color="#fff" />
+                    </TouchableOpacity>
                 </View>
 
                 {/* Nội dung chi tiết */}

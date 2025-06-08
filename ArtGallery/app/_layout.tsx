@@ -26,7 +26,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
         <Stack.Screen name="signIn" options={{ headerShown: false }} />
-
         <Stack.Screen name="artistDetail" />
       </Stack>
       <StatusBar style="auto" />

@@ -30,6 +30,7 @@ export default function HomeScreen() {
                 {/* <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/account"}>account</Link></ThemedText>
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/editAccount"}>editAcoount</Link></ThemedText> */}
                 <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/logOut"}>logoutlogout</Link></ThemedText>
+                <ThemedText type="title" style={{ color: 'Blue', marginTop: 30 }}><Link href={"/check"}>Check</Link></ThemedText>
             </ThemedView>
         </ParallaxScrollView>
 
