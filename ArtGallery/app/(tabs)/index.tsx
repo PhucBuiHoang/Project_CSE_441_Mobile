@@ -1,53 +1,61 @@
-import React, { useEffect, useState, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  FlatList,
-  Dimensions,
-} from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
 import { Link } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from '../services/api';
 
 const screenWidth = Dimensions.get('window').width;
+const imageMap = {
+  StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+  LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
+  TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
+  WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
+};
 
-const artworks = [
-  {
-    id: '1',
-    title: 'Abraham and the Angels',
-    artist: 'Giovanni Andrea de Ferrari',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    currentBid: '$5000',
-    participants: 12,
-    endDate: '2025-06-08',
-  },
-  {
-    id: '2',
-    title: 'The Starry Night',
-    artist: 'Vincent van Gogh',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    currentBid: '$8000',
-    participants: 19,
-    endDate: '2025-06-07',
-  },
-  {
-    id: '3',
-    title: 'Mona Lisa',
-    artist: 'Leonardo da Vinci',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
-    currentBid: '$12000',
-    participants: 25,
-    endDate: '2025-06-10T15:00:00Z',
-  },
-];
+// const artworks = [
+//   {
+//     id: '1',
+//     title: 'Abraham and the Angels',
+//     artist: 'Giovanni Andrea de Ferrari',
+//     image:
+//       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+//     currentBid: '$5000',
+//     participants: 12,
+//     endDate: '2025-06-08',
+//   },
+//   {
+//     id: '2',
+//     title: 'The Starry Night',
+//     artist: 'Vincent van Gogh',
+//     image:
+//       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+//     currentBid: '$8000',
+//     participants: 19,
+//     endDate: '2025-06-07',
+//   },
+//   {
+//     id: '3',
+//     title: 'Mona Lisa',
+//     artist: 'Leonardo da Vinci',
+//     image:
+//       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
+//     currentBid: '$12000',
+//     participants: 25,
+//     endDate: '2025-06-10T15:00:00Z',
+//   },
+// ];
 
 const dailyArtworks = [
   {
@@ -122,6 +130,42 @@ const newsData = [
 ];
 
 const HomeScreen = () => {
+  const [artworks, setArtworks] = useState([]);
+  const [top6, setTop6] = useState([]);
+  const [upcomingArts, setUpcomingArts] = useState([]);
+  useEffect(() => {
+    const fetchArtworks = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/Artwork/getBidding`);
+        setArtworks(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log('Failed to load artworks', error);
+      }
+    };
+    fetchArtworks();
+    const fetchTop6Artworks = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/Artwork/top6`);
+        setTop6(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log('Failed to load top 6 artworks', error);
+      }
+    };
+    fetchTop6Artworks();
+    const fetchUpcomingArtworks = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/Artwork/getBiddingUpcoming`);
+        setUpcomingArts(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.log('Failed to load top 6 artworks', error);
+      }
+    };
+    fetchUpcomingArtworks();
+  }, []);
+
   const targetDate = new Date();
   targetDate.setDate(targetDate.getDate() + 5);
 
@@ -135,7 +179,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const updateCountdowns = () => {
       const updated = artworks.reduce((acc, art) => {
-        acc[art.id] = calculateTimeLeft(new Date(art.endDate));
+        acc[art.id] = calculateTimeLeft(new Date(art.endBidDate));
         return acc;
       }, {} as any);
       setTimeLefts(updated);
@@ -145,31 +189,25 @@ const HomeScreen = () => {
     const timer = setInterval(updateCountdowns, 1000);
 
     return () => clearInterval(timer);
-  }, []);
-  // 
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setTimeLeft(calculateTimeLeft(targetDate));
-  //   }, 1000);
-  //   return () => clearInterval(timer);
-  // }, []);
+  }, [artworks]);
 
   useEffect(() => {
+    if (artworks.length === 0) return; // ✅ only run when artworks are ready
+
     const slideInterval = setInterval(() => {
       const nextIndex = (currentIndex + 1) % artworks.length;
       flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
       setCurrentIndex(nextIndex);
     }, 5000);
-    return () => clearInterval(slideInterval);
-  }, [currentIndex]);
 
+    return () => clearInterval(slideInterval);
+  }, [currentIndex, artworks]);
 
   const renderArtworkItem = ({ item }: { item: any }) => {
     const time = timeLefts[item.id] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
     return (
       <View style={styles.card}>
-        <Image source={{ uri: item.image }} style={styles.artImage} resizeMode="cover" />
+        <Image source={imageMap[item.imageUrl]} style={styles.artImage} resizeMode="cover" />
 
         <View style={styles.countdown}>
           <Text style={styles.countText}>{time.days}{"\n"}Days</Text>
@@ -180,8 +218,8 @@ const HomeScreen = () => {
 
         <View style={styles.info}>
           <Text style={styles.artTitle}>{item.title}</Text>
-          <Text>Artist: {item.artist}</Text>
-          <Text>Current bid: {item.currentBid}</Text>
+          <Text>Artist: {item.authorName}</Text>
+          <Text>Current bid: {item.price}</Text>
           <Text>Participants: {item.participants}</Text>
         </View>
 
@@ -198,13 +236,13 @@ const HomeScreen = () => {
   return (
     <SafeAreaView edges={["top"]}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* <View style={styles.header}>
+        <View style={styles.header}>
           <Ionicons name="menu" size={28} color="#f7941d" />
           <View style={styles.headerIcons}>
             <Ionicons name="cart-outline" size={24} color="#f7941d" style={styles.icon} />
             <Ionicons name="notifications-outline" size={24} color="#f7941d" />
           </View>
-        </View> */}
+        </View>
 
         <View style={styles.searchBar}>
           <TextInput
@@ -218,9 +256,7 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Text style={styles.hotBidsTitle}>Hot Bids</Text>
           <View style={styles.headerIcons}>
-            <Link href={'/bidList'}>
-              <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
-            </Link>
+            <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
           </View>
         </View>
 
@@ -255,22 +291,19 @@ const HomeScreen = () => {
           ))}
         </View>
         <View style={styles.header}>
-          <Text style={styles.dailyArtTitle}>Daily Art</Text>
+          <Text style={styles.dailyArtTitle}>Top Favorite Artworks</Text>
           <View style={styles.headerIcons}>
             <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
           </View>
         </View>
         <View style={styles.dailyArtContainer}>
-          {dailyArtworks.map((art) => (
-            <Link href={'/artworkDetail'} key={art.id}>
-              <Image
-                key={art.id}
-                source={{ uri: art.image }}
-                style={styles.dailyArtImage}
-                resizeMode="cover"
-              />
-            </Link>
-
+          {top6.map((art) => (
+            <Image
+              key={art.id}
+              source={imageMap[art.imageUrl]}
+              style={styles.dailyArtImage}
+              resizeMode="cover"
+            />
           ))}
         </View>
 
@@ -283,16 +316,16 @@ const HomeScreen = () => {
         </View>
 
         <FlatList
-          data={upcomingExhibitions}
+          data={upcomingArts}
           horizontal
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingRight: 16 }}
           renderItem={({ item }) => (
             <View style={styles.exhibitionCard}>
-              <Image source={{ uri: item.image }} style={styles.exhibitionImage} resizeMode="cover" />
+              <Image source={imageMap[item.imageUrl]} style={styles.exhibitionImage} resizeMode="cover" />
               <Text style={styles.exhibitionTitle}>{item.title}</Text>
-              <Text style={styles.exhibitionArtist}>{item.artist}</Text>
+              <Text style={styles.exhibitionArtist}>{item.authorName}</Text>
             </View>
           )}
         />

@@ -7,10 +7,9 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import Feather from '@expo/vector-icons/Feather';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
@@ -98,6 +97,20 @@ export default function TabLayout() {
         name="artworkDetail"
         options={{
           title: 'Artwork Detail',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="artList"
+        options={{
+          title: 'Artwork List',
+          href: null,
+        }}
+      />
+      <Tabs.Screen
+        name="artistList"
+        options={{
+          title: 'Artist List',
           href: null,
         }}
       />

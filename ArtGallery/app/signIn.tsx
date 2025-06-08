@@ -1,22 +1,91 @@
+import { FontAwesome } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    View,
+    ActivityIndicator,
+    Alert,
+    Dimensions,
+    ImageBackground,
+    StatusBar,
+    StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
-    StyleSheet,
-    ImageBackground,
-    Dimensions,
-    StatusBar,
-    Image,
+    View
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { useFonts } from 'expo-font';
-import { LinearGradient } from 'expo-linear-gradient';
+import { API_BASE_URL } from './services/api';
+
 
 const { width, height } = Dimensions.get('window');
 
 const LoginScreen = () => {
+    const [loading, setLoading] = useState(false);
+    const handleLogin = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_BASE_URL}/Auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                let errorMessage;
+                try {
+                    const errorData = JSON.parse(errorText);
+                    errorMessage = errorData.message || "Login failed";
+                } catch {
+                    errorMessage = errorText || "Login failed";
+                }
+                Alert.alert("Login Failed", errorMessage);
+                return;
+            }
+
+            const data = await response.json();
+            const token = data.token;
+
+            if (!token) {
+                Alert.alert("Error", "Token not received.");
+                return;
+            }
+            Alert.alert("Login", 'Login successfully!');
+            await AsyncStorage.setItem('token', token);
+            navigation.replace('/(tabs)');
+
+        } catch (error) {
+            Alert.alert("Error", error.message || "An unexpected error occurred.");
+        } finally {
+            setLoading(false); // hide loading
+        }
+    };
+
+    // try {
+    //     const response = await axios.post('http://192.168.1.13:5266/api/Auth/login', {
+    //         username,
+    //         password
+    //     });
+
+    //     const { token } = response.data;
+
+    //     // Save token to AsyncStorage
+    //     await AsyncStorage.setItem('token', token);
+    //     if (!token) {
+    //         navigation.replace('/signIn');
+    //     }
+
+    //     // Navigate to a protected route or home
+    //     navigation.replace('/(tabs)'); // Change path to your actual screen
+    // } catch (error) {
+    //     console.error(error);
+    //     Alert.alert('Login Failed', 'Invalid username or password');
+    // }
+
+    const navigation = useRouter();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -44,128 +113,139 @@ const LoginScreen = () => {
             >
                 {/* Overlay để tạo hiệu ứng mờ */}
                 <View style={styles.overlay} />
-
-                <View style={styles.loginContainer}>
-                    {/* Glass morphism container */}
-                    <View style={styles.glassContainer}>
-                        {/* Header */}
-                        <View style={styles.header}>
-                            <Text style={styles.title}>Sign in</Text>
-                        </View>
-
-                        {/* Form */}
-                        <View style={styles.form}>
-                            {/* Username Input */}
-                            <View style={styles.inputContainer}>
-                                <FontAwesome
-                                    name="user"
-                                    size={20}
-                                    color="rgba(255, 255, 255, 0.8)"
-                                    style={styles.inputIcon}
-                                />
-                                <TextInput
-                                    style={styles.textInput}
-                                    placeholder="Type your username"
-                                    placeholderTextColor="rgba(255, 255, 255, 0.8)"
-                                    value={username}
-                                    onChangeText={setUsername}
-                                    autoCapitalize="none"
-
-                                />
+                {loading ? (
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                        <Text>Logging in, please wait...</Text>
+                    </View>
+                ) : (
+                    <View style={styles.loginContainer}>
+                        {/* Glass morphism container */}
+                        <View style={styles.glassContainer}>
+                            {/* Header */}
+                            <View style={styles.header}>
+                                <Text style={styles.title}>Sign in</Text>
                             </View>
 
-                            {/* Password Input */}
-                            <View style={styles.inputContainer}>
-                                <FontAwesome
-                                    name="lock"
-                                    size={20}
-                                    color="rgba(255, 255, 255, 0.8)"
-                                    style={styles.inputIcon}
-                                />
-                                <TextInput
-                                    style={styles.textInput}
-                                    placeholder="Type your password"
-                                    placeholderTextColor="rgba(255, 255, 255, 0.8)"
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    secureTextEntry={!showPassword}
-                                    autoCapitalize="none"
-                                />
-                                <TouchableOpacity
-                                    onPress={() => setShowPassword(!showPassword)}
-
-                                >
+                            {/* Form */}
+                            <View style={styles.form}>
+                                {/* Username Input */}
+                                <View style={styles.inputContainer}>
                                     <FontAwesome
-                                        name={showPassword ? "eye" : "eye-slash"}
+                                        name="user"
                                         size={20}
                                         color="rgba(255, 255, 255, 0.8)"
+                                        style={styles.inputIcon}
                                     />
-                                </TouchableOpacity>
-                            </View>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        placeholder="Type your username"
+                                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                                        value={username}
+                                        onChangeText={setUsername}
+                                        autoCapitalize="none"
 
-                            {/* Remember Me & Forgot Password */}
-                            <View style={styles.optionsRow}>
-                                <TouchableOpacity
-                                    style={styles.rememberContainer}
-                                    onPress={() => setRememberMe(!rememberMe)}
-                                >
+                                    />
+                                </View>
+
+                                {/* Password Input */}
+                                <View style={styles.inputContainer}>
                                     <FontAwesome
-                                        name={rememberMe ? "check-square" : "square-o"}
-                                        size={16}
+                                        name="lock"
+                                        size={20}
                                         color="rgba(255, 255, 255, 0.8)"
+                                        style={styles.inputIcon}
                                     />
-                                    <Text style={styles.rememberText}>Remember for 30 days</Text>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        placeholder="Type your password"
+                                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                                        value={password}
+                                        onChangeText={setPassword}
+                                        secureTextEntry={!showPassword}
+                                        autoCapitalize="none"
+                                    />
+                                    <TouchableOpacity
+                                        onPress={() => setShowPassword(!showPassword)}
+
+                                    >
+                                        <FontAwesome
+                                            name={showPassword ? "eye" : "eye-slash"}
+                                            size={20}
+                                            color="rgba(255, 255, 255, 0.8)"
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* Remember Me & Forgot Password */}
+                                <View style={styles.optionsRow}>
+                                    <TouchableOpacity
+                                        style={styles.rememberContainer}
+                                        onPress={() => setRememberMe(!rememberMe)}
+                                    >
+                                        <FontAwesome
+                                            name={rememberMe ? "check-square" : "square-o"}
+                                            size={16}
+                                            color="rgba(255, 255, 255, 0.8)"
+                                        />
+                                        <Text style={styles.rememberText}>Remember for 30 days</Text>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity>
+                                        <Text style={styles.forgotText}>Forgot password?</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* Divider */}
+                                <View style={styles.dividerContainer}>
+                                    <View style={styles.dividerLine} />
+                                    <Text style={styles.dividerText}>or</Text>
+                                    <View style={styles.dividerLine} />
+                                </View>
+
+                                {/* Social Login Buttons */}
+                                <View style={styles.socialContainer}>
+                                    <TouchableOpacity style={styles.socialButton}>
+                                        <FontAwesome name="facebook" size={24} color="#1877F2" />
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.socialButton}>
+                                        <FontAwesome name="apple" size={24} color="#000" />
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={styles.socialButton}>
+                                        <FontAwesome name="google" size={24} color="#EA4335" />
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* Sign In Button */}
+                                <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
+                                    <Text style={styles.signInButtonText}>Sign in</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity>
-                                    <Text style={styles.forgotText}>Forgot password?</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* Divider */}
-                            <View style={styles.dividerContainer}>
-                                <View style={styles.dividerLine} />
-                                <Text style={styles.dividerText}>or</Text>
-                                <View style={styles.dividerLine} />
-                            </View>
-
-                            {/* Social Login Buttons */}
-                            <View style={styles.socialContainer}>
-                                <TouchableOpacity style={styles.socialButton}>
-                                    <FontAwesome name="facebook" size={24} color="#1877F2" />
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={styles.socialButton}>
-                                    <FontAwesome name="apple" size={24} color="#000" />
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={styles.socialButton}>
-                                    <FontAwesome name="google" size={24} color="#EA4335" />
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* Sign In Button */}
-                            <TouchableOpacity style={styles.signInButton}>
-                                <Text style={styles.signInButtonText}>Sign in</Text>
-                            </TouchableOpacity>
-
-                            {/* Sign Up Link */}
-                            <View style={styles.signUpContainer}>
-                                <Text style={styles.signUpText}>Don't have an account? </Text>
-                                <TouchableOpacity>
-                                    <Text style={styles.signUpLink}>Sign up</Text>
-                                </TouchableOpacity>
+                                {/* Sign Up Link */}
+                                <View style={styles.signUpContainer}>
+                                    <Text style={styles.signUpText}>Don't have an account? </Text>
+                                    <TouchableOpacity onPress={() => navigation.push(
+                                        {
+                                            pathname: '/signUp'
+                                        }
+                                    )}>
+                                        <Text style={styles.signUpLink}>Sign up</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
+                )}
+
             </ImageBackground>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-
+    loadingContainer: { alignItems: 'center' },
     container: {
         flex: 1,
     },

@@ -4,14 +4,15 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from '../services/api';
 
 // const { width } = Dimensions.get('window');
 
 const screenWidth = Dimensions.get('window').width;
-const Section = ({ title, children, color = '#e17055', style = {} }) => (
+const Section = ({ title, children, onPress, color = '#e17055', style = {} }) => (
     <View style={[styles.section, style]}>
         {/* <Text style={[styles.sectionTitle, { color }]}>{title}</Text> */}
-        <TouchableOpacity style={styles.titleContainer}>
+        <TouchableOpacity onPress={onPress} style={styles.titleContainer}>
             <Text style={[styles.sectionTitle, { color }]}>{title}</Text>
             <Ionicons name="chevron-forward" size={16} color="#aaa" />
         </TouchableOpacity>
@@ -30,20 +31,43 @@ const ImageCard = ({ title, imageUrl, onPress, cardStyle }) => {
 };
 
 const DiscoverScreen = () => {
+    const navigation = useRouter();
     const [carouselItems, setCarouselItems] = useState([]);
-
+    const [artists, setArtist] = useState([]);
+    const [genre, setGenres] = useState([]);
     useEffect(() => {
-        const fetchServices = async () => {
+        const fetchArtworks = async () => {
             try {
                 // const token = await AsyncStorage.getItem('token');
-                const res = await axios.get('http://localhost:5266/api/Artwork');
+                const res = await axios.get(`${API_BASE_URL}/Artwork`);
+                // await AsyncStorage.setItem('artworks', res.data);
                 setCarouselItems(res.data);
                 console.log(res.data);
             } catch (error) {
-                console.log('Failed to load services', error);
+                console.log('Failed to load artworks', error);
             }
         };
-        fetchServices();
+        fetchArtworks();
+        const fetchArtists = async () => {
+            try {
+                // const token = await AsyncStorage.getItem('token');
+                const artist = await axios.get(`${API_BASE_URL}/Author`);
+                setArtist(artist.data);
+            } catch (error) {
+                console.log('Failed to load artists', error);
+            }
+        };
+        fetchArtists();
+        const fetchGenres = async () => {
+            try {
+                // const token = await AsyncStorage.getItem('token');
+                const genres = await axios.get(`${API_BASE_URL}/Category`);
+                setGenres(genres.data);
+            } catch (error) {
+                console.log('Failed to load genres', error);
+            }
+        };
+        fetchGenres();
     }, []);
     const imageMap = {
         StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
@@ -51,11 +75,6 @@ const DiscoverScreen = () => {
         TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
         WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
     };
-    const navigation = useRouter();
-    const artists = [
-        { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
-        { name: 'Jenny Doe', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
-    ];
 
     const museums = [
         { name: 'Louvre Museum', desc: 'Paris, French', image: require('../../assets/images/room3.jpg') },
@@ -92,8 +111,8 @@ const DiscoverScreen = () => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <ImageCard
-                            title={item.description}
-                            imageUrl={item.imageUrl}
+                            title={item.title}
+                            imageUrl={imageMap[item.imageUrl]}
                             cardStyle={styles.carouselCard}
                             onPress={() => console.log('Pressed', item.title)}
                         />
@@ -121,7 +140,11 @@ const DiscoverScreen = () => {
                     ))}
                 </View>
 
-                <Section title="Artist">
+                <Section title="Artist" onPress={() => navigation.push(
+                    {
+                        pathname: '/artistList'
+                    }
+                )}>
                     <FlatList
                         horizontal
                         data={artists}
@@ -134,14 +157,14 @@ const DiscoverScreen = () => {
                                     params: item
                                 }
                             )}>
-                                <Image source={item.image} style={styles.artistImage} />
+                                <Image source={imageMap[item.image]} style={styles.artistImage} />
                                 <Text>{item.name}</Text>
                             </TouchableOpacity>
                         )}
                     />
                 </Section>
 
-                <Section title="Museums & Galleries" color="#f0932b">
+                <Section title="Museums & Galleries" color="#f0932b" onPress={() => console.log('Pressed museum')}>
                     {museums.map((m, idx) => (
                         <View key={idx} style={styles.museumCard}>
                             <Image source={m.image} style={styles.museumImage} />
@@ -153,16 +176,20 @@ const DiscoverScreen = () => {
                     ))}
                 </Section>
 
-                <Section title="Genres">
+                <Section title="Genres" onPress={() => navigation.push(
+                    {
+                        pathname: '/artList'
+                    }
+                )}>
                     <FlatList
                         horizontal
-                        data={genres}
+                        data={genre}
                         keyExtractor={(item, index) => index.toString()}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item }) => (
                             <ImageCard
                                 title={item.name}
-                                imageUrl={item.image}
+                                imageUrl={imageMap[item.imageUrl]}
                                 cardStyle={styles.genreCard}
                                 onPress={() => console.log('Pressed', item.name)}
                             />
@@ -172,7 +199,7 @@ const DiscoverScreen = () => {
 
                 <Section title="Collections" style={{
                     marginBottom: 30
-                }} >
+                }} onPress={() => console.log('Pressed collections')}>
                     <FlatList
                         horizontal
                         data={genres}
