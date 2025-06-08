@@ -45,21 +45,12 @@ const DiscoverScreen = () => {
         };
         fetchServices();
     }, []);
-    // const carouselItems = [
-    //     {
-    //         title: "The Anatomy of Painting",
-    //         image: require('../../assets/images/room3.jpg'), // replace with your image
-    //     },
-    //     {
-    //         title: "The Anatomy of Painting",
-    //         image: require('../../assets/images/room3.jpg'), // replace with your image
-    //     },
-    //     {
-    //         title: "The Anatomy of Painting",
-    //         image: require('../../assets/images/room3.jpg'), // replace with your image
-    //     },
-    //     // Add more items
-    // ];
+    const imageMap = {
+        StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+        LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
+        TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
+        WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
+    };
     const navigation = useRouter();
     const artists = [
         { name: 'Jenny Saville', image: require('../../assets/images/room3.jpg'), description: 'The art on display is multidisciplinary and includes paintings, sculptures, and installations. The programs are dedicated to meeting the needs of the local community, focusing on connecting artists to resources, support, and other artists. The Factory is making a name for itself while executing its vision of collaboration, learning, and co-creating the emerging artistic scene in Vietnam.' },
