@@ -75,6 +75,45 @@ const DiscoverScreen = () => {
         TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
         WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
     };
+    const images = {
+        AbstractReflections: require('../../assets/images/AbstractReflections.jpg'),
+        AbstractSymphonyMusicInspiredModernArtCanvas: require('../../assets/images/AbstractSymphonyMusicInspiredModernArtCanvas.jpg'),
+        TheLastLightEchoesofMyYouth: require('../../assets/images/TheLastLightEchoesofMyYouth.jpg'),
+        CityLights: require('../../assets/images/CityLights.jpg'),
+        FridaKahloJungleCatLovesEver: require('../../assets/images/Frida Kahlo Jungle Cat love’s Ever.jpg'),
+        FusionElements: require('../../assets/images/Fusion Elements.jpg'),
+        GirlWithAPearlEarring: require('../../assets/images/Girl with a Pearl Earring.jpg'),
+        MoreThanJustArtItsAFeeling: require('../../assets/images/More than just art—it’s a feeling.jpg'),
+        PinkLotuses: require('../../assets/images/Pink Lotuses.jpg'),
+        RedPoppy: require('../../assets/images/Red Poppy.jpg'),
+        SelfPortraitWithThornNecklace: require('../../assets/images/Self-Portrait with Thorn Necklace.jpg'),
+        StarryNightOverTheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+        Sunflowers: require('../../assets/images/Sunflowers.jpg'),
+        TheLastLightEchoesOfMyYouth: require('../../assets/images/The Last Light Echoes of My Youth.jpg'),
+        TimelessBeautyBlackAndWhitePhotography: require('../../assets/images/Timeless Beauty Black and White Photography.jpg'),
+        UrbanEscapeVibrantCityscapeFramedPainting: require('../../assets/images/Urban Escape Vibrant Cityscape Framed Painting.jpg'),
+        WaterLiliesSeries12: require('../../assets/images/Water Lilies Series #12.jpg'),
+        WhereImaginationMeetsTheCanvas: require('../../assets/images/Where imagination meets the canvas.jpg'),
+        WhispersOfColorsInSilentShadows: require('../../assets/images/Whispers of Colors in Silent Shadows.jpg'),
+        ABrushstrokeOfSerenityInAChaoticWorld: require('../../assets/images/A brushstroke of serenity in a chaotic world.jpg'),
+        WhereStillnessSpeaksColorsConverse: require('../../assets/images/Where Stillness Speaks, Colors Converse.jpg'),
+    };
+    const artistImages = {
+        VincentVanGogh: require('../../assets/images/Vincent van Gogh.jpg'),
+        PabloPicasso: require('../../assets/images/Pablo Picasso.jpg'),
+        LeonardoDaVinci: require('../../assets/images/Leonardo da Vinci.jpg'),
+        ClaudeMonet: require('../../assets/images/Claude Monet.jpg'),
+        GeorgiaOKeeffe: require('../../assets/images/Georgia O\'Keeffe.jpg'),
+        SalvadorDali: require('../../assets/images/Salvador Dalí.jpg'),
+        FridaKahlo: require('../../assets/images/Frida Kahlo.jpg'),
+        AndyWarhol: require('../../assets/images/Andy Warhol.jpg'),
+        HenriMatisse: require('../../assets/images/Henri Matisse.jpg'),
+        JacksonPollock: require('../../assets/images/Jackson Pollock.jpg'),
+        Rembrandt: require('../../assets/images/Rembrandt.jpg'),
+        EdgarDegas: require('../../assets/images/Edgar Degas.jpg'),
+        DavidHockney: require('../../assets/images/David Hockney.jpg'),
+    };
+
 
     const museums = [
         { name: 'Louvre Museum', desc: 'Paris, French', image: require('../../assets/images/room3.jpg') },

@@ -136,7 +136,7 @@ const HomeScreen = () => {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/Artwork/getBidding`);
+        const res = await axios.get(`${API_BASE_URL}/Artwork/get5Bidding`);
         setArtworks(res.data);
         console.log(res.data);
       } catch (error) {
