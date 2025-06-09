@@ -1,22 +1,25 @@
 // ProductDetailScreen.tsx
+import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, FlatList, TextInput } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
+import { FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from '../services/api';
 
-const productData = {
-    id: 1,
-    title: "Tomb of a Suicide",
-    medium: "oil on canvas",
-    size: "212 × 142 cm",
-    artist: "Wilhelm Kotarbiński",
-    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    dateTag: "TODAY",
-    likes: 210,
-    description: `Japan’s art world experienced a profound transformation from the mid-19th to early 20th century, as traditional aesthetics encountered a wave of European artistic philosophies and techniques. This period of tension and innovation provided the backdrop for the career of Kyoto-based artist Takeuchi Seihō. Trained in the Shijō school of painting, Seihō expanded his artistic vocabulary by drawing from a range of styles—including the Kano school, bunjinga (literati painting), and European realism. His pursuit of new modes of expression led to the development of a characteristic style that helped spark a revolution in the Kyoto art scene.One of the most striking values of Takeuchi Seihō’s paintings is the dynamic vitality of his animal subjects. He had an extraordinary ability to capture fleeting moments, giving the impression that his creatures might leap, flutter, or scamper off the page at any moment. He was a great observer of nature. As Seihō once explained, “I don’t simply look at a static image of animals. I watch them over time, noting every subtle change in posture, texture, and movement to truly understand their unique characteristics.”Beautiful, aren't they?`,
-    price: 120000,
-    endBidDate: "2025-06-10",
-};
+// const artworkItem = {
+//     id: 1,
+//     title: "Tomb of a Suicide",
+//     medium: "oil on canvas",
+//     size: "212 × 142 cm",
+//     artist: "Wilhelm Kotarbiński",
+//     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+//     dateTag: "TODAY",
+//     likes: 210,
+//     description: `Japan’s art world experienced a profound transformation from the mid-19th to early 20th century, as traditional aesthetics encountered a wave of European artistic philosophies and techniques. This period of tension and innovation provided the backdrop for the career of Kyoto-based artist Takeuchi Seihō. Trained in the Shijō school of painting, Seihō expanded his artistic vocabulary by drawing from a range of styles—including the Kano school, bunjinga (literati painting), and European realism. His pursuit of new modes of expression led to the development of a characteristic style that helped spark a revolution in the Kyoto art scene.One of the most striking values of Takeuchi Seihō’s paintings is the dynamic vitality of his animal subjects. He had an extraordinary ability to capture fleeting moments, giving the impression that his creatures might leap, flutter, or scamper off the page at any moment. He was a great observer of nature. As Seihō once explained, “I don’t simply look at a static image of animals. I watch them over time, noting every subtle change in posture, texture, and movement to truly understand their unique characteristics.”Beautiful, aren't they?`,
+//     price: 120000,
+//     endBidDate: "2025-06-10",
+// };
 const auctionLog = [
     { id: '1', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
     { id: '2', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
@@ -28,13 +31,40 @@ const auctionLog = [
 
 
 const BidDetailScreen = () => {
-    const [bid, setBid] = useState(productData.price);
+    const params = useLocalSearchParams();
+    console.log(params);
+    const price = parseFloat(params.price as string);
+    // const { artworkItem, setArtwork } = useState([]);
+    const { users, setUsers } = useState([]);
+    useEffect(() => {
+        // const fetchArtwork = async () => {
+        //     try {
+        //         const res = await axios.get(`${API_BASE_URL}/Artwork/${params}`);
+        //         setArtwork(res.data);
+        //         console.log(res.data);
+        //     } catch (error) {
+        //         console.log('Failed to load bid artwork', error);
+        //     }
+        // };
+        // fetchArtwork();
+        const fetchUsers = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/users/${params.id}`);
+                setUsers(res.data);
+                console.log(res.data);
+            } catch (error) {
+                console.log('Failed to load user bidding', error);
+            }
+        };
+        fetchUsers();
+    }, []);
+    const [bid, setBid] = useState(params.price);
     const [timeLefts, setTimeLefts] = useState<{ [key: string]: any }>({});
-    const time = timeLefts[productData.endBidDate] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    const time = timeLefts[params.endBidDate] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
     useEffect(() => {
         const updateCountdowns = () => {
             const updated = {
-                [productData.endBidDate]: calculateTimeLeft(new Date(productData.endBidDate))
+                [params.endBidDate]: calculateTimeLeft(new Date(params.endBidDate))
             };
             setTimeLefts(updated);
         };
@@ -54,7 +84,7 @@ const BidDetailScreen = () => {
             <ScrollView >
                 <View>
                     <Image
-                        source={{ uri: productData.imageUrl }}
+                        source={{ uri: params.imageUrl }}
                         style={styles.image}
                         resizeMode="cover"
                     />
@@ -65,9 +95,6 @@ const BidDetailScreen = () => {
                     <TouchableOpacity>
                         <Ionicons name="arrow-back" size={24} color="#fff" />
                     </TouchableOpacity>
-                    {/* <TouchableOpacity>
-                        <Feather name="share-2" size={22} color="#fff" />
-                    </TouchableOpacity> */}
                 </View>
 
                 {/* Nội dung chi tiết */}
@@ -81,33 +108,33 @@ const BidDetailScreen = () => {
                     {/* Tag + Icon yêu thích */}
                     <View style={styles.topRow}>
                         <View>
-                            <Text style={styles.title}>{productData.title}</Text>
-                            {/* <Text style={styles.tagText}>{productData.dateTag}</Text> */}
+                            <Text style={styles.title}>{params.title}</Text>
+                            {/* <Text style={styles.tagText}>{artworkItem.dateTag}</Text> */}
                         </View>
                         <View style={styles.rightIcons}>
                             <View style={styles.iconBox}>
                                 <Ionicons name="heart-outline" size={20} color="#000" />
-                                <Text style={styles.iconText}>{productData.likes}</Text>
+                                <Text style={styles.iconText}>{params.likes}</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.info}>
-                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Artist:</Text> Phuc Bui</Text>
-                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Current bid:</Text> ${productData.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</Text>
+                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Artist:</Text> {params.authorName}</Text>
+                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Current bid:</Text> ${params.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</Text>
                         <Text style={{ fontSize: 18 }}>
                             <Text style={{ fontWeight: '300', fontSize: 20 }}>Ending:</Text>{" "}
-                            {new Date(productData.endBidDate).toLocaleDateString('en-US', {
+                            {new Date(params.endBidDate).toLocaleDateString('en-US', {
                                 year: 'numeric', month: 'long', day: 'numeric'
                             })}
                         </Text>
                     </View>
                     {/* <View style={styles.authorContainer}>
-                        <Text style={styles.author}>{productData.artist}</Text>
+                        <Text style={styles.author}>{artworkItem.artist}</Text>
                     </View> */}
 
                     <View style={styles.bidRow}>
                         <TouchableOpacity
-                            onPress={() => setBid(prev => Math.max(prev - 100, productData.price))}
+                            onPress={() => setBid(prev => Math.max(prev - 100, params.price))}
                             style={styles.changeBidBtn}>
                             <Text style={styles.changeBidText}>-</Text>
                         </TouchableOpacity>

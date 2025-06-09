@@ -1,6 +1,6 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
@@ -11,18 +11,18 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL } from '../services/api';
 
 const screenWidth = Dimensions.get('window').width;
-const imageMap = {
-  StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
-  LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
-  TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
-  WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
-};
+// const imageMap = {
+//   StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+//   LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
+//   TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
+//   WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
+// };
 
 // const artworks = [
 //   {
@@ -130,6 +130,7 @@ const newsData = [
 ];
 
 const HomeScreen = () => {
+  const navigation = useRouter();
   const [artworks, setArtworks] = useState([]);
   const [top6, setTop6] = useState([]);
   const [upcomingArts, setUpcomingArts] = useState([]);
@@ -138,7 +139,7 @@ const HomeScreen = () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/Artwork/get5Bidding`);
         setArtworks(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.log('Failed to load artworks', error);
       }
@@ -148,7 +149,7 @@ const HomeScreen = () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/Artwork/top6`);
         setTop6(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.log('Failed to load top 6 artworks', error);
       }
@@ -158,7 +159,7 @@ const HomeScreen = () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/Artwork/getBiddingUpcoming`);
         setUpcomingArts(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.log('Failed to load top 6 artworks', error);
       }
@@ -202,12 +203,34 @@ const HomeScreen = () => {
 
     return () => clearInterval(slideInterval);
   }, [currentIndex, artworks]);
-
+  const images = {
+    AbstractReflections: require('../../assets/images/AbstractReflections.jpg'),
+    AbstractSymphonyMusicInspiredModernArtCanvas: require('../../assets/images/AbstractSymphonyMusicInspiredModernArtCanvas.jpg'),
+    TheLastLightEchoesofMyYouth: require('../../assets/images/TheLastLightEchoesofMyYouth.jpg'),
+    CityLights: require('../../assets/images/CityLights.jpg'),
+    FridaKahloJungleCatLovesEver: require('../../assets/images/FridaKahloJungleCatLovesEver.jpg'),
+    FusionElements: require('../../assets/images/FusionElements.jpg'),
+    GirlWithAPearlEarring: require('../../assets/images/GirlWithAPearlEarring.jpg'),
+    MoreThanJustArtItsAFeeling: require('../../assets/images/MoreThanJustArtItsAFeeling.jpg'),
+    PinkLotuses: require('../../assets/images/PinkLotuses.jpg'),
+    RedPoppy: require('../../assets/images/RedPoppy.jpg'),
+    SelfPortraitWithThornNecklace: require('../../assets/images/SelfPortraitWithThornNecklace.jpg'),
+    StarryNightOverTheRhone: require('../../assets/images/StarryNightOverTheRhone.jpg'),
+    Sunflowers: require('../../assets/images/Sunflowers.jpg'),
+    // TheLastLightEchoesOfMyYouth: require('../../assets/images/TheLastLightEchoesOfMyYouth.jpg'),
+    TimelessBeautyBlackAndWhitePhotography: require('../../assets/images/TimelessBeautyBlackAndWhitePhotography.jpg'),
+    UrbanEscapeVibrantCityscapeFramedPainting: require('../../assets/images/UrbanEscapeVibrantCityscapeFramedPainting.jpg'),
+    WaterLiliesSeries12: require('../../assets/images/WaterLiliesSeries12.jpg'),
+    WhereImaginationMeetsTheCanvas: require('../../assets/images/WhereImaginationMeetsTheCanvas.jpg'),
+    WhispersOfColorsInSilentShadows: require('../../assets/images/WhispersOfColorsInSilentShadows.jpg'),
+    ABrushstrokeOfSerenityInAChaoticWorld: require('../../assets/images/ABrushstrokeOfSerenityInAChaoticWorld.jpg'),
+    WhereStillnessSpeaksColorsConverse: require('../../assets/images/WhereStillnessSpeaksColorsConverse.jpg'),
+  };
   const renderArtworkItem = ({ item }: { item: any }) => {
     const time = timeLefts[item.id] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
     return (
       <View style={styles.card}>
-        <Image source={imageMap[item.imageUrl]} style={styles.artImage} resizeMode="cover" />
+        <Image source={images[item.imageUrl]} style={styles.artImage} resizeMode="cover" />
 
         <View style={styles.countdown}>
           <Text style={styles.countText}>{time.days}{"\n"}Days</Text>
@@ -223,13 +246,32 @@ const HomeScreen = () => {
           <Text>Participants: {item.participants}</Text>
         </View>
 
-        <TouchableOpacity style={styles.button}>
-          <Link href="/bidDetail">
-            <Text style={styles.buttonText}>Bidding Start</Text>
-          </Link>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.push(
+          {
+            pathname: '/bidDetail',
+            params: item
+          }
+        )}>
+          {/* <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.push({
+              pathname: '/bidDetail',
+              params: {
+                imageUrl: item.imageUrl,
+                title: item.title,
+                authorName: item.authorName,
+                price: item.price.toString(),  // numbers must be stringified
+                endBidDate: item.endBidDate,
+                // likes: item.likes.toString()
+              }
+            });
+          }}
+        > */}
+          <Text style={styles.buttonText}>Bidding Start</Text>
 
         </TouchableOpacity>
-      </View>
+      </View >
     )
   };
 
@@ -300,11 +342,12 @@ const HomeScreen = () => {
           {top6.map((art) => (
             <Image
               key={art.id}
-              source={imageMap[art.imageUrl]}
+              source={images[art.imageUrl]}
               style={styles.dailyArtImage}
               resizeMode="cover"
             />
           ))}
+
         </View>
 
 
@@ -323,7 +366,7 @@ const HomeScreen = () => {
           contentContainerStyle={{ paddingRight: 16 }}
           renderItem={({ item }) => (
             <View style={styles.exhibitionCard}>
-              <Image source={imageMap[item.imageUrl]} style={styles.exhibitionImage} resizeMode="cover" />
+              <Image source={images[item.imageUrl]} style={styles.exhibitionImage} resizeMode="cover" />
               <Text style={styles.exhibitionTitle}>{item.title}</Text>
               <Text style={styles.exhibitionArtist}>{item.authorName}</Text>
             </View>
@@ -450,6 +493,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 4,
+
   },
   button: {
     marginTop: 12,

@@ -26,7 +26,7 @@ const ArtistListScreen = () => {
         fetchArtists();
     }, []);
     const imageMap = {
-        StarryNightOvertheRhone: require('../assets/images/Starry Night Over the Rhone.jpg'),
+        // StarryNightOvertheRhone: require('../assets/images/Starry Night Over the Rhone.jpg'),
         LesDemoisellesdAvignon: require('../assets/images/Les Demoiselles dAvignon.jpg'),
         TheLastSuppeStudy: require('../assets/images/The Last Supper Study.jpg'),
         WaterLiliesSeries: require('../assets/images/Water Lilies Series.jpg'),

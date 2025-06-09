@@ -39,6 +39,7 @@ const DiscoverScreen = () => {
         const fetchArtworks = async () => {
             try {
                 // const token = await AsyncStorage.getItem('token');
+                // console.log(token);
                 const res = await axios.get(`${API_BASE_URL}/Artwork`);
                 // await AsyncStorage.setItem('artworks', res.data);
                 setCarouselItems(res.data);
@@ -69,34 +70,34 @@ const DiscoverScreen = () => {
         };
         fetchGenres();
     }, []);
-    const imageMap = {
-        StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
-        LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
-        TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
-        WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
-    };
+    // const imageMap = {
+    //     StarryNightOvertheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+    //     LesDemoisellesdAvignon: require('../../assets/images/Les Demoiselles dAvignon.jpg'),
+    //     TheLastSuppeStudy: require('../../assets/images/The Last Supper Study.jpg'),
+    //     WaterLiliesSeries: require('../../assets/images/Water Lilies Series.jpg'),
+    // };
     const images = {
         AbstractReflections: require('../../assets/images/AbstractReflections.jpg'),
         AbstractSymphonyMusicInspiredModernArtCanvas: require('../../assets/images/AbstractSymphonyMusicInspiredModernArtCanvas.jpg'),
         TheLastLightEchoesofMyYouth: require('../../assets/images/TheLastLightEchoesofMyYouth.jpg'),
         CityLights: require('../../assets/images/CityLights.jpg'),
-        FridaKahloJungleCatLovesEver: require('../../assets/images/Frida Kahlo Jungle Cat love’s Ever.jpg'),
-        FusionElements: require('../../assets/images/Fusion Elements.jpg'),
-        GirlWithAPearlEarring: require('../../assets/images/Girl with a Pearl Earring.jpg'),
-        MoreThanJustArtItsAFeeling: require('../../assets/images/More than just art—it’s a feeling.jpg'),
-        PinkLotuses: require('../../assets/images/Pink Lotuses.jpg'),
-        RedPoppy: require('../../assets/images/Red Poppy.jpg'),
-        SelfPortraitWithThornNecklace: require('../../assets/images/Self-Portrait with Thorn Necklace.jpg'),
-        StarryNightOverTheRhone: require('../../assets/images/Starry Night Over the Rhone.jpg'),
+        FridaKahloJungleCatLovesEver: require('../../assets/images/FridaKahloJungleCatLovesEver.jpg'),
+        FusionElements: require('../../assets/images/FusionElements.jpg'),
+        GirlWithAPearlEarring: require('../../assets/images/GirlWithAPearlEarring.jpg'),
+        MoreThanJustArtItsAFeeling: require('../../assets/images/MoreThanJustArtItsAFeeling.jpg'),
+        PinkLotuses: require('../../assets/images/PinkLotuses.jpg'),
+        RedPoppy: require('../../assets/images/RedPoppy.jpg'),
+        SelfPortraitWithThornNecklace: require('../../assets/images/SelfPortraitWithThornNecklace.jpg'),
+        StarryNightOverTheRhone: require('../../assets/images/StarryNightOverTheRhone.jpg'),
         Sunflowers: require('../../assets/images/Sunflowers.jpg'),
-        TheLastLightEchoesOfMyYouth: require('../../assets/images/The Last Light Echoes of My Youth.jpg'),
-        TimelessBeautyBlackAndWhitePhotography: require('../../assets/images/Timeless Beauty Black and White Photography.jpg'),
-        UrbanEscapeVibrantCityscapeFramedPainting: require('../../assets/images/Urban Escape Vibrant Cityscape Framed Painting.jpg'),
-        WaterLiliesSeries12: require('../../assets/images/Water Lilies Series #12.jpg'),
-        WhereImaginationMeetsTheCanvas: require('../../assets/images/Where imagination meets the canvas.jpg'),
-        WhispersOfColorsInSilentShadows: require('../../assets/images/Whispers of Colors in Silent Shadows.jpg'),
-        ABrushstrokeOfSerenityInAChaoticWorld: require('../../assets/images/A brushstroke of serenity in a chaotic world.jpg'),
-        WhereStillnessSpeaksColorsConverse: require('../../assets/images/Where Stillness Speaks, Colors Converse.jpg'),
+        // TheLastLightEchoesOfMyYouth: require('../../assets/images/TheLastLightEchoesOfMyYouth.jpg'),
+        TimelessBeautyBlackAndWhitePhotography: require('../../assets/images/TimelessBeautyBlackAndWhitePhotography.jpg'),
+        UrbanEscapeVibrantCityscapeFramedPainting: require('../../assets/images/UrbanEscapeVibrantCityscapeFramedPainting.jpg'),
+        WaterLiliesSeries12: require('../../assets/images/WaterLiliesSeries12.jpg'),
+        WhereImaginationMeetsTheCanvas: require('../../assets/images/WhereImaginationMeetsTheCanvas.jpg'),
+        WhispersOfColorsInSilentShadows: require('../../assets/images/WhispersOfColorsInSilentShadows.jpg'),
+        ABrushstrokeOfSerenityInAChaoticWorld: require('../../assets/images/ABrushstrokeOfSerenityInAChaoticWorld.jpg'),
+        WhereStillnessSpeaksColorsConverse: require('../../assets/images/WhereStillnessSpeaksColorsConverse.jpg'),
     };
     const artistImages = {
         VincentVanGogh: require('../../assets/images/Vincent van Gogh.jpg'),
@@ -151,7 +152,7 @@ const DiscoverScreen = () => {
                     renderItem={({ item }) => (
                         <ImageCard
                             title={item.title}
-                            imageUrl={imageMap[item.imageUrl]}
+                            imageUrl={images[item.imageUrl]}
                             cardStyle={styles.carouselCard}
                             onPress={() => console.log('Pressed', item.title)}
                         />
@@ -196,7 +197,7 @@ const DiscoverScreen = () => {
                                     params: item
                                 }
                             )}>
-                                <Image source={imageMap[item.image]} style={styles.artistImage} />
+                                <Image source={artistImages[item.image]} style={styles.artistImage} />
                                 <Text>{item.name}</Text>
                             </TouchableOpacity>
                         )}
@@ -228,7 +229,7 @@ const DiscoverScreen = () => {
                         renderItem={({ item }) => (
                             <ImageCard
                                 title={item.name}
-                                imageUrl={imageMap[item.imageUrl]}
+                                imageUrl={images[item.imageUrl]}
                                 cardStyle={styles.genreCard}
                                 onPress={() => console.log('Pressed', item.name)}
                             />
