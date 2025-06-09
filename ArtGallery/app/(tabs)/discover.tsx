@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, FlatList, Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL } from '../services/api';
+import { genreImage } from '../services/genreImage';
 
 // const { width } = Dimensions.get('window');
 
@@ -117,17 +118,16 @@ const DiscoverScreen = () => {
 
 
     const museums = [
-        { name: 'Louvre Museum', desc: 'Paris, French', image: require('../../assets/images/room3.jpg') },
-        { name: 'Green Palm Gallery', desc: 'District 1, HCMC', image: require('../../assets/images/room3.jpg') },
+        { name: 'Louvre Museum', desc: 'Paris, French', image: require('../../assets/images/SelfPortraitWithThornNecklace.jpg') },
+        { name: 'Green Palm Gallery', desc: 'District 1, HCMC', image: require('../../assets/images/FusionElements.jpg') },
     ];
 
     const genres = [
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
-        { name: 'Roman art', image: require('../../assets/images/room3.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/WhereStillnessSpeaksColorsConverse.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/ABrushstrokeOfSerenityInAChaoticWorld.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/UrbanEscapeVibrantCityscapeFramedPainting.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/WhereStillnessSpeaksColorsConverse.jpg') },
+        { name: 'Roman art', image: require('../../assets/images/UrbanEscapeVibrantCityscapeFramedPainting.jpg') },
     ];
     const flatListRef = useRef<FlatList>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -229,7 +229,7 @@ const DiscoverScreen = () => {
                         renderItem={({ item }) => (
                             <ImageCard
                                 title={item.name}
-                                imageUrl={images[item.imageUrl]}
+                                imageUrl={genreImage[item.imageUrl]}
                                 cardStyle={styles.genreCard}
                                 onPress={() => console.log('Pressed', item.name)}
                             />

@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from '../services/api';
+import { genreImage } from '../services/genreImage';
 
 export default function SearchScreen() {
     const galleryItems = [
@@ -13,6 +15,19 @@ export default function SearchScreen() {
         { id: '5', imageUrl: 'https://cdn-zbiory.mnk.pl/upload/multimedia/56/e7/56e7871948a825ab8f200b1d3228aa65.jpg', title: 'Collections' },
         { id: '6', imageUrl: 'https://cdn-zbiory.mnk.pl/upload/multimedia/56/e7/56e7871948a825ab8f200b1d3228aa65.jpg', title: 'Exhibitions' },
     ];
+    const [genre, setGenres] = useState([]);
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                // const token = await AsyncStorage.getItem('token');
+                const genres = await axios.get(`${API_BASE_URL}/Category`);
+                setGenres(genres.data);
+            } catch (error) {
+                console.log('Failed to load genres', error);
+            }
+        };
+        fetchGenres();
+    }, []);
     const SearchCard = ({ title, imageUrl }) => {
         const source = typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl;
         return (
@@ -44,11 +59,11 @@ export default function SearchScreen() {
             </View>
             <ScrollView style={styles.container}>
                 <View style={styles.gridContainer}>
-                    {galleryItems.map(item => (
+                    {genre.map(item => (
                         <SearchCard
                             key={item.id}
-                            imageUrl={item.imageUrl}
-                            title={item.title}
+                            imageUrl={genreImage[item.imageUrl]}
+                            title={item.name}
                         />
                     ))}
                 </View>

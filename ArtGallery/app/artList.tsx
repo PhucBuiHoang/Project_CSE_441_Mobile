@@ -1,62 +1,60 @@
-import React from 'react';
+import axios from 'axios';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
-    View,
-    Text,
+    FlatList,
     Image,
     StyleSheet,
-    FlatList,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { API_BASE_URL } from './services/api';
+import { images } from './services/images';
 
-
-const collections = [
-    {
-        id: '1',
-        title: 'Pointillism',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-    {
-        id: '2',
-        title: 'The Anatomy of Painting',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-    {
-        id: '3',
-        title: 'Impressionism',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-    {
-        id: '4',
-        title: 'Cubism Highlights',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-    {
-        id: '5',
-        title: 'Japanese Ukiyo-e',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-    {
-        id: '6',
-        title: 'Abstract Expressionism',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-    },
-];
+interface ArtProps {
+    id: number;
+    title: string;
+    imageURL: string;
+}
 
 const App = () => {
+
+    const [arts, setArts] = useState<ArtProps[]>([]);
+
+    useEffect(() => {
+        async function fetchingArts() {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/Artwork`);
+                setArts(response.data);
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        fetchingArts();
+    }, []);
+
+    const navigation = useRouter();
     const renderItem = ({ item }: { item: any }) => (
-        <View style={styles.card}>
-            <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
+        <TouchableOpacity style={styles.card} onPress={() => navigation.push(
+            {
+                pathname: '/artworkDetail',
+                params: item
+            }
+        )}>
+            <Image source={images[item.imageUrl]} style={styles.image} resizeMode="cover" />
             <View style={styles.overlay} />
             <Text style={styles.title}>{item.title}</Text>
-        </View>
+        </TouchableOpacity>
     );
 
     return (
         // <SafeAreaView edges={["top"]}>
         <SafeAreaView edges={["bottom"]}>
             <FlatList
-                data={collections}
-                keyExtractor={(item) => item.id}
+                data={arts}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={renderItem}
                 contentContainerStyle={{ padding: 16 }}
                 showsVerticalScrollIndicator={false}

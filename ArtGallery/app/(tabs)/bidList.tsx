@@ -3,62 +3,89 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions }
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
+import axios from 'axios';
+import { API_BASE_URL } from '../services/api';
 
 
 const screenWidth = Dimensions.get('window').width;
-const mockData = [
-    {
-        id: '1',
-        title: 'Abraham and the Angels',
-        artist: 'Unknown',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 1000000,
-        endBidDate: '2025-06-11T12:00:00Z',
-    },
-    {
-        id: '3',
-        title: 'Abraham and the Angels',
-        artist: 'Unknown',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 10000,
-        endBidDate: '2025-06-11T12:00:00Z',
-    },
-    {
-        id: '2',
-        title: 'Untitled Portrait',
-        artist: 'Unknown',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
-        currentBid: 2000000,
-        endBidDate: '2025-06-12T08:00:00Z',
-    }
-];
+const images = {
+    AbstractReflections: require('../../assets/images/AbstractReflections.jpg'),
+    AbstractSymphonyMusicInspiredModernArtCanvas: require('../../assets/images/AbstractSymphonyMusicInspiredModernArtCanvas.jpg'),
+    TheLastLightEchoesofMyYouth: require('../../assets/images/TheLastLightEchoesofMyYouth.jpg'),
+    CityLights: require('../../assets/images/CityLights.jpg'),
+    FridaKahloJungleCatLovesEver: require('../../assets/images/FridaKahloJungleCatLovesEver.jpg'),
+    FusionElements: require('../../assets/images/FusionElements.jpg'),
+    GirlWithAPearlEarring: require('../../assets/images/GirlWithAPearlEarring.jpg'),
+    MoreThanJustArtItsAFeeling: require('../../assets/images/MoreThanJustArtItsAFeeling.jpg'),
+    PinkLotuses: require('../../assets/images/PinkLotuses.jpg'),
+    RedPoppy: require('../../assets/images/RedPoppy.jpg'),
+    SelfPortraitWithThornNecklace: require('../../assets/images/SelfPortraitWithThornNecklace.jpg'),
+    StarryNightOverTheRhone: require('../../assets/images/StarryNightOverTheRhone.jpg'),
+    Sunflowers: require('../../assets/images/Sunflowers.jpg'),
+    // TheLastLightEchoesOfMyYouth: require('../../assets/images/TheLastLightEchoesOfMyYouth.jpg'),
+    TimelessBeautyBlackAndWhitePhotography: require('../../assets/images/TimelessBeautyBlackAndWhitePhotography.jpg'),
+    UrbanEscapeVibrantCityscapeFramedPainting: require('../../assets/images/UrbanEscapeVibrantCityscapeFramedPainting.jpg'),
+    WaterLiliesSeries12: require('../../assets/images/WaterLiliesSeries12.jpg'),
+    WhereImaginationMeetsTheCanvas: require('../../assets/images/WhereImaginationMeetsTheCanvas.jpg'),
+    WhispersOfColorsInSilentShadows: require('../../assets/images/WhispersOfColorsInSilentShadows.jpg'),
+    ABrushstrokeOfSerenityInAChaoticWorld: require('../../assets/images/ABrushstrokeOfSerenityInAChaoticWorld.jpg'),
+    WhereStillnessSpeaksColorsConverse: require('../../assets/images/WhereStillnessSpeaksColorsConverse.jpg'),
+};
+
+export interface BidProps {
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string;
+    endBidDate: string;
+    authorName: string;
+    price: number;
+    participants: number;
+    countLike: number;
+    genreName: string;
+}
 
 
 
 
 const BidList = () => {
     const [timeLefts, setTimeLefts] = useState<{ [key: string]: any }>({});
+    const [bids, setBids] = useState<BidProps[]>([]);
+    useEffect(() => {
+        const fetchBids = async () => {
+            try {
+                const res = await axios.get(`${API_BASE_URL}/Artwork/getBidding`);
+                setBids(res.data);
+                console.log(res.data);
+            } catch (error) {
+                console.log('Failed to load artworks', error);
+            }
+        };
+        fetchBids();
+    }, []);
 
     useEffect(() => {
         const updateCountdowns = () => {
-            const updated = mockData.reduce((acc, art) => {
-                acc[art.id] = calculateTimeLeft(new Date(art.endBidDate));
+            const updated = bids.reduce((acc, bid) => {
+                acc[bid.id] = calculateTimeLeft(new Date(bid.endBidDate));
                 return acc;
             }, {} as any);
             setTimeLefts(updated);
+
         };
 
-        updateCountdowns(); // initial run
+        updateCountdowns();
         const timer = setInterval(updateCountdowns, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [bids]);
 
-    const renderArtworkItem = ({ item }: { item: any }) => {
+    const renderArtworkItem = ({ item }: { item: BidProps }) => {
         const time = timeLefts[item.id] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
         return (
             <View style={styles.card}>
-                <Image source={{ uri: item.imageUrl }} style={styles.artImage} resizeMode="cover" />
+                <Image source={images[item.imageUrl]} style={styles.artImage} resizeMode="cover" />
 
                 <View style={styles.countdown}>
                     <Text style={styles.countText}>{time.days}{"\n"}Days</Text>
@@ -69,8 +96,8 @@ const BidList = () => {
 
                 <View style={styles.info}>
                     <Text style={styles.artTitle}>{item.title}</Text>
-                    <Text>Artist: {item.artist}</Text>
-                    <Text>Current bid: ${formatBid(item.currentBid)}</Text>
+                    <Text>Artist: {item.authorName}</Text>
+                    <Text>Current bid: ${formatBid(item.price)}</Text>
                     <Text>Participants: {item.participants}</Text>
                 </View>
 
@@ -105,8 +132,8 @@ const BidList = () => {
 
             {/* List */}
             <FlatList
-                data={mockData}
-                keyExtractor={item => item.id}
+                data={bids}
+                keyExtractor={item => item.id.toString()}
                 contentContainerStyle={{ padding: 12 }}
                 renderItem={renderArtworkItem}
                 style={{ marginBottom: 25 }}

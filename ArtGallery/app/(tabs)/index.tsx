@@ -132,14 +132,14 @@ const newsData = [
 
 const HomeScreen = () => {
   const navigation = useRouter();
-  const [artworks, setArtworks] = useState([]);
+  const [top5Bidd, setTop5Bids] = useState([]);
   const [top6, setTop6] = useState([]);
   const [upcomingArts, setUpcomingArts] = useState([]);
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/Artwork/get5Bidding`);
-        setArtworks(res.data);
+        setTop5Bids(res.data);
         // console.log(res.data);
       } catch (error) {
         console.log('Failed to load artworks', error);
@@ -180,7 +180,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const updateCountdowns = () => {
-      const updated = artworks.reduce((acc, art) => {
+      const updated = top5Bidd.reduce((acc, art) => {
         acc[art.id] = calculateTimeLeft(new Date(art.endBidDate));
         return acc;
       }, {} as any);
@@ -191,19 +191,19 @@ const HomeScreen = () => {
     const timer = setInterval(updateCountdowns, 1000);
 
     return () => clearInterval(timer);
-  }, [artworks]);
+  }, [top5Bidd]);
 
   useEffect(() => {
-    if (artworks.length === 0) return; // ✅ only run when artworks are ready
+    if (top5Bidd.length === 0) return; // ✅ only run when artworks are ready
 
     const slideInterval = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % artworks.length;
+      const nextIndex = (currentIndex + 1) % top5Bidd.length;
       flatListRef.current?.scrollToIndex({ index: nextIndex, animated: true });
       setCurrentIndex(nextIndex);
     }, 5000);
 
     return () => clearInterval(slideInterval);
-  }, [currentIndex, artworks]);
+  }, [currentIndex, top5Bidd]);
   const images = {
     AbstractReflections: require('../../assets/images/AbstractReflections.jpg'),
     AbstractSymphonyMusicInspiredModernArtCanvas: require('../../assets/images/AbstractSymphonyMusicInspiredModernArtCanvas.jpg'),
@@ -296,16 +296,16 @@ const HomeScreen = () => {
             <Ionicons name="search" size={24} color="#f7941d" />
           </TouchableOpacity>
         </View>
-        <View style={styles.header}>
+        <TouchableOpacity style={styles.header} onPress={() => navigation.push('/bidList')}>
           <Text style={styles.hotBidsTitle}>Hot Bids</Text>
           <View style={styles.headerIcons}>
             <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
           </View>
-        </View>
+        </TouchableOpacity>
 
         <FlatList
           ref={flatListRef}
-          data={artworks}
+          data={top5Bidd}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -323,7 +323,7 @@ const HomeScreen = () => {
         />
 
         <View style={styles.paginationContainer}>
-          {artworks.map((_, index) => (
+          {top5Bidd.map((_, index) => (
             <View
               key={index}
               style={[
@@ -333,12 +333,16 @@ const HomeScreen = () => {
             />
           ))}
         </View>
-        <View style={styles.header}>
+
+        <TouchableOpacity style={styles.header} onPress={() => navigation.push('/artList')}>
+          {/* <View style={styles.header}> */}
           <Text style={styles.dailyArtTitle}>Top Favorite Artworks</Text>
           <View style={styles.headerIcons}>
             <AntDesign name="right" size={24} color="#C2C2C2" style={{ marginTop: 5 }} />
           </View>
-        </View>
+          {/* </View> */}
+        </TouchableOpacity>
+
         <View style={styles.dailyArtContainer}>
           {top6.map((art) => (
             // <Image

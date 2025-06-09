@@ -13,6 +13,21 @@ const artists = [
 
 const ArtistListScreen = () => {
     const [artists, setArtist] = useState([]);
+    const artistImages = {
+        VincentVanGogh: require('../assets/images/Jackson Pollock.jpg'),
+        PabloPicasso: require('../assets/images/Pablo Picasso.jpg'),
+        LeonardoDaVinci: require('../assets/images/Leonardo da Vinci.jpg'),
+        ClaudeMonet: require('../assets/images/Claude Monet.jpg'),
+        GeorgiaOKeeffe: require('../assets/images/Georgia O\'Keeffe.jpg'),
+        SalvadorDali: require('../assets/images/Salvador Dalí.jpg'),
+        FridaKahlo: require('../assets/images/Frida Kahlo.jpg'),
+        AndyWarhol: require('../assets/images/Andy Warhol.jpg'),
+        HenriMatisse: require('../assets/images/Henri Matisse.jpg'),
+        JacksonPollock: require('../assets/images/Jackson Pollock.jpg'),
+        Rembrandt: require('../assets/images/Rembrandt.jpg'),
+        EdgarDegas: require('../assets/images/Edgar Degas.jpg'),
+        DavidHockney: require('../assets/images/David Hockney.jpg'),
+    };
     useEffect(() => {
         const fetchArtists = async () => {
             try {
@@ -40,7 +55,7 @@ const ArtistListScreen = () => {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <View style={styles.artistItem}>
-                            <Image source={imageMap[item.image]} style={styles.image} />
+                            <Image source={artistImages[item.image]} style={styles.image} />
                             <View>
                                 <Text style={styles.name}>{item.name}</Text>
                                 <Text style={styles.dates}>{item.dob}</Text>
@@ -58,8 +73,8 @@ const styles = StyleSheet.create({
     // container: { flex: 1, padding: 20, backgroundColor: '#fff' },
     artistItem: { flexDirection: 'row', alignItems: 'center', margin: 10 },
     image: { width: 90, height: 90, borderRadius: 50, marginRight: 10 },
-    name: { fontSize: 16, fontWeight: 'bold', color: "white" },
-    dates: { fontSize: 14, color: "white" },
+    name: { fontSize: 16, fontWeight: 'bold', color: "#000" },
+    dates: { fontSize: 14, color: "#000" },
 });
 
 export default ArtistListScreen;

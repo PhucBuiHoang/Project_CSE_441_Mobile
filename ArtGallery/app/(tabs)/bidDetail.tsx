@@ -1,11 +1,13 @@
 // ProductDetailScreen.tsx
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL } from '../services/api';
+import { images } from '../services/images';
 
 // const artworkItem = {
 //     id: 1,
@@ -20,56 +22,101 @@ import { API_BASE_URL } from '../services/api';
 //     price: 120000,
 //     endBidDate: "2025-06-10",
 // };
-const auctionLog = [
-    { id: '1', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-    { id: '2', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-    { id: '3', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-    { id: '4', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-    { id: '5', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-    { id: '6', name: 'Phan Thao', time: '22:00', amount: '$2000.00', avatar: 'https://i.pravatar.cc/100?img=1' },
-];
+
+
+interface BidProps {
+    id: number;
+    title: string;
+    description: string;
+    imageURL: string;
+    endBidDate: string;
+    authorName: string;
+    price: number;
+    participants: number;
+
+    countLike: number;
+    genreName: string;
+}
+
 
 
 const BidDetailScreen = () => {
+    const navigation = useRouter();
     const params = useLocalSearchParams();
-    console.log(params);
-    const price = parseFloat(params.price as string);
-    // const { artworkItem, setArtwork } = useState([]);
-    const { users, setUsers } = useState([]);
+    const [bid, setBid] = useState<BidProps>(params);
+    const [originPrice, setOriginPrice] = useState<number>(params.price);
+    const [users, setUsers] = useState([]);
+    const handleBidNow = async () => {
+        let bidOkay = false;
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                Alert.alert('Authentication Error', 'Please login to place a bid.');
+                navigation.push('/signIn');
+            }
+
+            const bidDto = {
+                id: bid.id,
+                price: originPrice
+            };
+
+            const response = await axios.post(`${API_BASE_URL}/Bid/bid`, bidDto, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+
+            setBid((prev) => ({ ...prev, price: originPrice }));
+
+            bidOkay = true;
+
+
+
+
+            Alert.alert('Success', 'Your bid has been placed!');
+            // Optional: refresh or navigate
+        } catch (error: any) {
+            console.log('Error placing bid:', error);
+            Alert.alert('Bid Failed', error.response?.data?.message || 'Something went wrong.');
+        }
+
+        if (bidOkay) {
+            try {
+                const res = await axios.get(`http://10.70.173.140:5266/users/${bid.id}`);
+                setUsers(res.data);
+
+            } catch (error) {
+                console.log('Failed to load user bidding', error);
+            }
+        }
+    };
+
     useEffect(() => {
-        // const fetchArtwork = async () => {
-        //     try {
-        //         const res = await axios.get(`${API_BASE_URL}/Artwork/${params}`);
-        //         setArtwork(res.data);
-        //         console.log(res.data);
-        //     } catch (error) {
-        //         console.log('Failed to load bid artwork', error);
-        //     }
-        // };
-        // fetchArtwork();
         const fetchUsers = async () => {
             try {
-                const res = await axios.get(`${API_BASE_URL}/users/${params.id}`);
+                const res = await axios.get(`http://10.70.173.140:5266/users/${bid.id}`);
                 setUsers(res.data);
-                console.log(res.data);
+
             } catch (error) {
                 console.log('Failed to load user bidding', error);
             }
         };
         fetchUsers();
     }, []);
-    const [bid, setBid] = useState(params.price);
+
     const [timeLefts, setTimeLefts] = useState<{ [key: string]: any }>({});
-    const time = timeLefts[params.endBidDate] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    const time = timeLefts[bid.endBidDate] || { days: 0, hours: 0, minutes: 0, seconds: 0 };
     useEffect(() => {
         const updateCountdowns = () => {
             const updated = {
-                [params.endBidDate]: calculateTimeLeft(new Date(params.endBidDate))
+                [bid.endBidDate]: calculateTimeLeft(new Date(bid.endBidDate))
             };
             setTimeLefts(updated);
         };
 
-        updateCountdowns(); // chạy lần đầu
+        updateCountdowns();
         const timer = setInterval(updateCountdowns, 1000);
 
         return () => clearInterval(timer);
@@ -84,7 +131,7 @@ const BidDetailScreen = () => {
             <ScrollView >
                 <View>
                     <Image
-                        source={{ uri: params.imageUrl }}
+                        source={images[params.imageUrl]}
                         style={styles.image}
                         resizeMode="cover"
                     />
@@ -114,16 +161,16 @@ const BidDetailScreen = () => {
                         <View style={styles.rightIcons}>
                             <View style={styles.iconBox}>
                                 <Ionicons name="heart-outline" size={20} color="#000" />
-                                <Text style={styles.iconText}>{params.likes}</Text>
+                                <Text style={styles.iconText}>{bid.countLike}</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.info}>
-                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Artist:</Text> {params.authorName}</Text>
-                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Current bid:</Text> ${params.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</Text>
+                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>{params.id} Artist:</Text> {bid.authorName}</Text>
+                        <Text style={{ fontSize: 18 }}><Text style={{ fontWeight: 300, fontSize: 20 }}>Current bid:</Text> ${bid.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</Text>
                         <Text style={{ fontSize: 18 }}>
                             <Text style={{ fontWeight: '300', fontSize: 20 }}>Ending:</Text>{" "}
-                            {new Date(params.endBidDate).toLocaleDateString('en-US', {
+                            {new Date(bid.endBidDate).toLocaleDateString('en-US', {
                                 year: 'numeric', month: 'long', day: 'numeric'
                             })}
                         </Text>
@@ -134,32 +181,33 @@ const BidDetailScreen = () => {
 
                     <View style={styles.bidRow}>
                         <TouchableOpacity
-                            onPress={() => setBid(prev => Math.max(prev - 100, params.price))}
+                            onPress={() => setOriginPrice(prev => (Math.max(prev - 500, bid.price)))}
                             style={styles.changeBidBtn}>
                             <Text style={styles.changeBidText}>-</Text>
                         </TouchableOpacity>
                         <TextInput
                             style={styles.bidInput}
-                            value={`$${formatBid(bid)}`}
+                            value={`$${formatBid(originPrice)}`}
                             onChangeText={(text) => {
-                                const cleaned = text.replace(/[^0-9.]/g, ''); // loại bỏ ký tự không hợp lệ
+                                const cleaned = text.replace(/[^0-9.]/g, ''); // remove non-numeric characters
                                 const parsed = parseFloat(cleaned);
                                 if (!isNaN(parsed)) {
-                                    setBid(parsed);
+                                    setOriginPrice(parsed);
                                 } else {
-                                    setBid(0); // nếu rỗng
+                                    // either do nothing or reset the price to 0 or ''
+                                    setOriginPrice(0);
                                 }
                             }}
                             keyboardType="numeric"
                         />
                         <TouchableOpacity
-                            onPress={() => setBid(prev => prev + 100)}
+                            onPress={() => setOriginPrice((prev) => parseInt(prev) + 1000)}
                             style={styles.changeBidBtn}>
                             <Text style={styles.changeBidText}>+</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 12 }}>
-                        <TouchableOpacity style={styles.bidButton}>
+                        <TouchableOpacity style={styles.bidButton} onPress={handleBidNow}>
                             <Text style={styles.bidButtonText}>Bid Now</Text>
                         </TouchableOpacity>
                     </View>
@@ -175,16 +223,16 @@ const BidDetailScreen = () => {
                             Auction Log</Text>
                         <FlatList
                             scrollEnabled={false}
-                            data={auctionLog}
+                            data={users}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => (
                                 <View style={styles.logItem}>
-                                    <Image source={{ uri: item.avatar }} style={styles.avatar} />
+                                    <Image source={images['AbstractReflections']} style={styles.avatar} />
                                     <View style={{ flex: 1 }}>
-                                        <Text style={styles.name}>{item.name}</Text>
-                                        <Text style={styles.amount}>{item.amount}</Text>
+                                        <Text style={styles.name}>{item.username}</Text>
+                                        <Text style={styles.amount}>${item.price}</Text>
                                     </View>
-                                    <Text style={styles.time}>{item.time}</Text>
+                                    <Text style={styles.time}>{new Date(item.bidDate).toLocaleDateString('en-GB')}</Text>
                                 </View>
                             )}
                             initialNumToRender={5}

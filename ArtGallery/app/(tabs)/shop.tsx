@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { red } from 'react-native-reanimated/lib/typescript/Colors';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -45,8 +44,6 @@ const mockData = [
         yourBid: 20000
     }
 ];
-
-
 
 
 const Shop = () => {

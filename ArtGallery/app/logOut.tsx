@@ -1,26 +1,33 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    TouchableOpacity,
     Alert,
+    Image,
     SafeAreaView,
     StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
-import profileImage from '../assets/images/avt.png'; // hoặc thay bằng ảnh bạn đang dùng
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import profileImage from '../assets/images/avt.png';
 
 const LogoutScreen = () => {
     const router = useRouter();
 
-    const handleLogout = () => {
-        Alert.alert('Logged out', 'You have been logged out!');
-        // Sau khi logout có thể navigate về login page
-        // router.replace('/login');
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('token');
+            Alert.alert('Logged out', 'You have been logged out!');
+            router.replace('/signIn');
+        } catch (err) {
+            console.error('Logout error:', err);
+            Alert.alert('Error', 'Logout failed');
+        }
     };
+
 
     return (
         <SafeAreaView style={styles.container}>
