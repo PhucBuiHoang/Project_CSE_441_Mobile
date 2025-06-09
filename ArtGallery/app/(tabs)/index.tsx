@@ -6,6 +6,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
@@ -340,12 +341,21 @@ const HomeScreen = () => {
         </View>
         <View style={styles.dailyArtContainer}>
           {top6.map((art) => (
-            <Image
-              key={art.id}
-              source={images[art.imageUrl]}
-              style={styles.dailyArtImage}
-              resizeMode="cover"
-            />
+            // <Image
+            //   key={art.id}
+            //   source={images[art.imageUrl]}
+            //   style={styles.dailyArtImage}
+            //   resizeMode="cover"
+            // />
+            <TouchableOpacity key={art.id} style={styles.favoriteArt} onPress={() => navigation.push(
+              {
+                pathname: '/artworkDetail',
+                params: art
+              }
+            )}>
+              <ImageBackground source={images[art.imageUrl]} style={styles.dailyArtImage} resizeMode="cover">
+              </ImageBackground>
+            </TouchableOpacity >
           ))}
 
         </View>
@@ -537,7 +547,9 @@ const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 16,
   },
-
+  favoriteArt: {
+    borderRadius: 10
+  },
   dailyArtImage: {
     width: (screenWidth - 48) / 3, // 3 cột, trừ padding và khoảng cách
     height: (screenWidth - 48) / 3,
