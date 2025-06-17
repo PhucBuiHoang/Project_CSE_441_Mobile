@@ -1,0 +1,309 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\controllers\\artworkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\controllers\\artworkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\controllers\\bidcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\controllers\\bidcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\bid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\artwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\artwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\updateusernamerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\updateusernamerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\dtos\\artworkdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\dtos\\artworkdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\dtos\\bidding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\dtos\\bidding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\dtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\author.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|c:\\users\\user\\desktop\\cse_441\\artgallery\\artgallery\\artgallery\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BA72216-5D26-49A1-BABE-DF1DF6D1D0DB}|ArtGallery\\ArtGallery.csproj|solutionrelative:artgallery\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BidController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\BidController.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Controllers\\BidController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\BidController.cs",
+              "RelativeToolTip": "ArtGallery\\Controllers\\BidController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAIwBkAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T07:09:43.131Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UpdateUsernameRequest.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\UpdateUsernameRequest.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\UpdateUsernameRequest.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\UpdateUsernameRequest.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\UpdateUsernameRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T03:21:09.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "ArtGallery\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAGMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T04:46:32.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ArtGallery\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA5wBAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T01:58:48.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\UserDto.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\DTOs\\UserDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\UserDto.cs",
+              "RelativeToolTip": "ArtGallery\\DTOs\\UserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T03:32:25.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Bid.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Bid.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\Bid.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Bid.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\Bid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T03:32:57.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\User.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\User.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\User.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA6wAsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T04:31:34.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ArtworkController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\ArtworkController.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Controllers\\ArtworkController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\ArtworkController.cs",
+              "RelativeToolTip": "ArtGallery\\Controllers\\ArtworkController.cs",
+              "ViewState": "AgIAANsAAAAAAAAAAAAiwOYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T00:54:04.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ArtworkDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\ArtworkDto.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\DTOs\\ArtworkDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\ArtworkDto.cs",
+              "RelativeToolTip": "ArtGallery\\DTOs\\ArtworkDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T08:28:31.628Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Bidding.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\Bidding.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\DTOs\\Bidding.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\Bidding.cs",
+              "RelativeToolTip": "ArtGallery\\DTOs\\Bidding.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T08:35:27.898Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Program.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Program.cs",
+              "RelativeToolTip": "ArtGallery\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T00:50:12.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Artwork.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Artwork.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\Artwork.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Artwork.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\Artwork.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAYwA4AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T04:22:12.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\appsettings.json",
+              "RelativeDocumentMoniker": "ArtGallery\\appsettings.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\appsettings.json",
+              "RelativeToolTip": "ArtGallery\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-09T00:50:33.01Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\DTOs\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\DTOs\\LoginRequest.cs",
+              "RelativeToolTip": "ArtGallery\\DTOs\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T05:00:43.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Author.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Author.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\Author.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Author.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\Author.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-08T04:24:35.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Category.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-08T05:38:24.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "ArtGallery\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T06:49:52.684Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "ArtGallery\\Models\\Role.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\CSE_441\\ArtGallery\\ArtGallery\\ArtGallery\\Models\\Role.cs",
+              "RelativeToolTip": "ArtGallery\\Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-06T03:50:05.466Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
